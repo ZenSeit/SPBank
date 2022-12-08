@@ -54,7 +54,10 @@ public class User {
     @UpdateTimestamp
     private LocalDate modifiedAt;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private Set<Product> myProducts;
+
+    @OneToMany(mappedBy = "modifiedBy")
+    private Set<Product> myProductsEdit;
 
 }

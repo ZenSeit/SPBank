@@ -1,6 +1,8 @@
 package com.zensei.backendsophosbank.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "products")
 @Getter
@@ -24,7 +26,7 @@ public class Product {
     @Column(nullable = false, length = 10)
     private String accountNumber;
 
-    //@ManyToOne
+    @ManyToOne
     private User owner;
 
     private String state;
@@ -34,6 +36,8 @@ public class Product {
     private LocalDate createdAt;
     private LocalDate modifiedAt;
     private LocalDate deletedAt;
+
+    @ManyToOne
     private User modifiedBy;
 
 }
