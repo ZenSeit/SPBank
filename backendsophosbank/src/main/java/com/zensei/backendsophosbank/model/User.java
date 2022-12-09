@@ -3,8 +3,8 @@ package com.zensei.backendsophosbank.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -24,8 +26,8 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-
+@Where(clause = "deleted_at is null")
+@SQLDelete(sql = "UPDATE users SET deleted_at=now() WHERE id = ?")
 public class User {
 
     @Id
@@ -54,9 +56,11 @@ public class User {
     @UpdateTimestamp
     private LocalDate modifiedAt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private Set<Product> myProducts;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "modifiedBy")
     private Set<Product> myProductsEdit;
 
