@@ -2,7 +2,7 @@ package com.zensei.backendsophosbank.controller;
 
 
 import com.zensei.backendsophosbank.exception.RecordNotFound;
-import com.zensei.backendsophosbank.exception.UserConstrains;
+import com.zensei.backendsophosbank.exception.UserConstraint;
 import com.zensei.backendsophosbank.model.User;
 import com.zensei.backendsophosbank.service.UserService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class UserController {
     private final UserService iUser;
 
     @PostMapping
-    public ResponseEntity signUpUser(@RequestBody @Valid User us) throws UserConstrains {
+    public ResponseEntity signUpUser(@RequestBody @Valid User us) throws UserConstraint {
         return ResponseEntity.ok(iUser.saveUser(us));
     }
 
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) throws RecordNotFound, UserConstrains {
+    public ResponseEntity deleteUser(@PathVariable Long id) throws RecordNotFound, UserConstraint {
         return new ResponseEntity(iUser.deleteUser(id),HttpStatus.OK);
     }
 

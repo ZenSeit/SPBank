@@ -1,7 +1,8 @@
 package com.zensei.backendsophosbank.handlerException;
 
+import com.zensei.backendsophosbank.exception.ProductConstraint;
 import com.zensei.backendsophosbank.exception.RecordNotFound;
-import com.zensei.backendsophosbank.exception.UserConstrains;
+import com.zensei.backendsophosbank.exception.UserConstraint;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,9 +39,16 @@ public class SophosBankHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserConstrains.class)
-    public String userConstrains(UserConstrains ex){
+    @ExceptionHandler(UserConstraint.class)
+    public String userConstrains(UserConstraint ex){
         return ex.getMessage();
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ProductConstraint.class)
+    public String productConstrains(ProductConstraint ex){
+        return ex.getMessage();
+    }
+
 
 }

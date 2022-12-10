@@ -33,8 +33,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String idType = "CC";
+    @Column(nullable = false, length = 4)
+    private String idType;
     @Column(nullable = false, length = 16)
     private String idNumber;
     @Column(nullable = false, length = 100)

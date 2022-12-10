@@ -1,7 +1,7 @@
 package com.zensei.backendsophosbank.service;
 
 import com.zensei.backendsophosbank.exception.RecordNotFound;
-import com.zensei.backendsophosbank.exception.UserConstrains;
+import com.zensei.backendsophosbank.exception.UserConstraint;
 import com.zensei.backendsophosbank.model.User;
 import com.zensei.backendsophosbank.repository.ProductRepository;
 import com.zensei.backendsophosbank.repository.UserRepository;
@@ -24,11 +24,11 @@ public class UserService implements IUserService {
     private final ProductRepository pRepository;
 
     @Override
-    public String saveUser(User user) throws UserConstrains {
+    public String saveUser(User user) throws UserConstraint {
         Optional<User> verifiedUser=uRepository.findByEmail(user.getEmail());
-        if(verifiedUser.isPresent()) throw new UserConstrains("Email already exist!. Choose other to register");
+        if(verifiedUser.isPresent()) throw new UserConstraint("Email already exist!. Choose other to register");
         if(Period.between(user.getBirthDate(), LocalDate.now()).getYears()<18){
-            throw new UserConstrains("You must be at least 18 years old to register in this Bank");
+            throw new UserConstraint("You must be at least 18 years old to register in this Bank");
         }
         uRepository.save(user);
         return "Created";
@@ -57,14 +57,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String deleteUser(Long idUser) throws RecordNotFound, UserConstrains {
+    public String deleteUser(Long idUser) throws RecordNotFound, UserConstraint {
 
         Optional<User> verifiedUser=uRepository.findById(idUser);
 
         if(verifiedUser.isEmpty()) throw new RecordNotFound("User isn't in DB");
 
         if(pRepository.countActiveAccounts(verifiedUser.get()).intValue()>0){
-            throw new UserConstrains("You need to cancel accounts associated to user.");
+            throw new UserConstraint("You need to cancel accounts associated to user.");
         }
 
         uRepository.deleteById(verifiedUser.get().getId());
