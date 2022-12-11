@@ -13,6 +13,7 @@ import lombok.Setter;
 import org.hibernate.annotations.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Check(constraints = "balance>=0 and account_type='saving' OR balance>=-3000000 and account_type='checking'")
@@ -42,10 +43,10 @@ public class Product {
     private double availableBalance;
     private boolean exceptionGMF;
     @CreationTimestamp
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     @UpdateTimestamp
-    private LocalDate modifiedAt;
-    private LocalDate deletedAt;
+    private LocalDateTime modifiedAt;
+    private LocalDateTime deletedAt;
 
     @ManyToOne
     private User modifiedBy;

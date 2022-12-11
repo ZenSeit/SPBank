@@ -17,6 +17,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 
@@ -51,10 +52,10 @@ public class User {
     @Column(length = 10)
     private String rol="client";
     @CreationTimestamp
-    private LocalDate createdAt;
-    private LocalDate deletedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime deletedAt;
     @UpdateTimestamp
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "owner")

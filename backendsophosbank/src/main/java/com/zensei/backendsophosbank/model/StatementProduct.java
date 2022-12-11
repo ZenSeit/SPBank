@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE users SET deleted_at=now() WHERE id = ?")
 public class StatementProduct {
 
