@@ -2,6 +2,7 @@ package com.zensei.backendsophosbank.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
@@ -12,6 +13,7 @@ import lombok.Setter;
 import org.hibernate.annotations.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Check(constraints = "balance>=0 and account_type='saving' OR balance>=-3000000 and account_type='checking'")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -47,5 +49,9 @@ public class Product {
 
     @ManyToOne
     private User modifiedBy;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "statementOwner")
+    private Set<StatementProduct> myStatements;
 
 }
