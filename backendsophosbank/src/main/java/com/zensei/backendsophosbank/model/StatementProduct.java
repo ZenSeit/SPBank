@@ -3,6 +3,7 @@ package com.zensei.backendsophosbank.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class StatementProduct {
     private LocalDateTime transactionDate;
     private String transactiontType;
     private String description;
+    @Min(value = 1)
     private double transactionValue;
     private String statementType;
     private double balance;

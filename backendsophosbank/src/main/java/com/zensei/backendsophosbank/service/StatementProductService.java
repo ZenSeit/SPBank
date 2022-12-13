@@ -1,5 +1,6 @@
 package com.zensei.backendsophosbank.service;
 
+import com.zensei.backendsophosbank.exception.ProductConstraint;
 import com.zensei.backendsophosbank.exception.RecordNotFound;
 import com.zensei.backendsophosbank.model.Product;
 import com.zensei.backendsophosbank.model.StatementProduct;
@@ -32,11 +33,11 @@ public class StatementProductService implements IStatementProductService{
 
     @Transactional
     @Override
-    public String creditToProduct(StatementProduct stProduct) throws RecordNotFound {
+    public String creditToProduct(StatementProduct stProduct, Long id) throws RecordNotFound {
         stProduct.setStatementType("Credit");
         stProduct.setTransactiontType("Pay-in");
 
-        Optional<Product> PayInProduct=pRepository.findById(stProduct.getStatementOwner().getId());
+        Optional<Product> PayInProduct=pRepository.findById(id);
 
         if(PayInProduct.isEmpty()) throw new RecordNotFound("Account doesn't exist!");
 
@@ -55,4 +56,33 @@ public class StatementProductService implements IStatementProductService{
 
         return "Pay-in account "+stProduct.getStatementOwner().getAccountNumber()+" successfully";
     }
+
+    @Override
+    public String debitFromProduct(StatementProduct stProduct, Long id) throws RecordNotFound, ProductConstraint {
+
+        stProduct.setStatementType("Debit");
+        stProduct.setTransactiontType("withdrawal");
+
+        Optional<Product> withdrawal=pRepository.findById(id);
+
+        if(withdrawal.isEmpty()) throw new RecordNotFound("Account doesn't exist!");
+
+        UAccount.checkBalanceOperation(withdrawal.get(),stProduct.getTransactionValue());
+
+        UAccount.applyGMF(withdrawal.get());
+
+        stProduct.setBalance(withdrawal.get().getBalance());
+        stProduct.setAvailableBalance(withdrawal.get().getAvailableBalance());
+        stProduct.setDescription("ATM");
+        stProduct.setStatementOwner(withdrawal.get());
+        stProduct.setTransactionValue(Math.abs(stProduct.getTransactionValue()));
+
+        pRepository.save(withdrawal.get());
+
+        spRepository.save(stProduct);
+
+        return "Debit from "+withdrawal.get().getAccountNumber()+" Value: $"+stProduct.getTransactionValue();
+    }
+
+
 }

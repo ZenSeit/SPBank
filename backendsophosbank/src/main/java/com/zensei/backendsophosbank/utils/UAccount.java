@@ -32,6 +32,23 @@ public class UAccount {
         }
     }
 
+    public static void checkBalanceOperation(Product product, double debitValue) throws ProductConstraint {
+        double balanceTransaction = product.getAvailableBalance()-Math.abs(debitValue);
+        if(product.getAccountType().equalsIgnoreCase("saving") && balanceTransaction<0){
+            throw new ProductConstraint("Your balance must be at least 0. You have $ "+product.getAvailableBalance()+" available.");
+        }else if (product.getAccountType().equalsIgnoreCase("checking") && balanceTransaction<-3000000){
+            throw new ProductConstraint("This account type can only overdraw up to 3000000.");
+        }
+
+        if(!product.isExceptionGMF()){
+            product.setBalance(balanceTransaction*(100/99.6));
+        }else{
+            product.setBalance(balanceTransaction);
+        }
+
+
+    }
+
     public static void applyGMF(Product product){
         if(product.isExceptionGMF()) {
             product.setAvailableBalance(product.getBalance());

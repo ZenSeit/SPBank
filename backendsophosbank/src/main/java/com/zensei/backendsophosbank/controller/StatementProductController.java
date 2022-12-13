@@ -1,5 +1,6 @@
 package com.zensei.backendsophosbank.controller;
 
+import com.zensei.backendsophosbank.exception.ProductConstraint;
 import com.zensei.backendsophosbank.exception.RecordNotFound;
 import com.zensei.backendsophosbank.model.StatementProduct;
 import com.zensei.backendsophosbank.service.StatementProductService;
@@ -22,8 +23,13 @@ public class StatementProductController {
     }
 
     @PostMapping(value = "{id}/credit")
-    public ResponseEntity creditToAccount(@RequestBody StatementProduct stObject) throws RecordNotFound {
-        return new ResponseEntity(spService.creditToProduct(stObject),HttpStatus.OK);
+    public ResponseEntity creditToAccount(@PathVariable Long id, @RequestBody StatementProduct stObject) throws RecordNotFound {
+        return new ResponseEntity(spService.creditToProduct(stObject,id),HttpStatus.OK);
+    }
+
+    @PostMapping(value = "{id}/debit")
+    public ResponseEntity debitFromAccount(@PathVariable Long id, @RequestBody StatementProduct stObject) throws RecordNotFound, ProductConstraint {
+        return new ResponseEntity(spService.debitFromProduct(stObject,id),HttpStatus.OK);
     }
 
 

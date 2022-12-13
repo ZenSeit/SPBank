@@ -5,6 +5,7 @@ import com.zensei.backendsophosbank.exception.RecordNotFound;
 import com.zensei.backendsophosbank.exception.UserConstraint;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -48,6 +49,12 @@ public class SophosBankHandler {
     @ExceptionHandler(ProductConstraint.class)
     public String productConstrains(ProductConstraint ex){
         return ex.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MissingPathVariableException.class)
+    public String badPath(MissingPathVariableException ex){
+        return "Your request is incorrect.";
     }
 
 
