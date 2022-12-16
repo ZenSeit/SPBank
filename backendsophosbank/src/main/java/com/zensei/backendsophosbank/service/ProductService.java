@@ -32,8 +32,9 @@ public class ProductService implements IProductService{
         if(owner.isEmpty() || modifier.isEmpty()) throw new RecordNotFound("User isn't in DB!");
         product.setAccountNumber(UAccount.serialAccount(product.getAccountType()));
         if(pRepository.countIsGMFPresent(product.getOwner())>0 && product.isExceptionGMF()) throw new ProductConstraint("User have a GMF exception account already!");
+        product.setBalance(Math.abs(product.getBalance()));
         UAccount.applyGMF(product);
-        UAccount.checkBalance(product);
+        //UAccount.checkBalance(product);
         return pRepository.save(product);
     }
 

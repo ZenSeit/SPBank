@@ -24,7 +24,7 @@ public class UAccount {
         }
     }
 
-    public static void checkBalance(Product product) throws ProductConstraint {
+    public static void checkBalanceCreation(Product product) throws ProductConstraint {
         if(product.getAccountType().equalsIgnoreCase("saving") && product.getBalance()<0){
             throw new ProductConstraint("Your balance must be at least 0");
         }else if (product.getAccountType().equalsIgnoreCase("checking") && product.getBalance()<-3000000){
@@ -33,27 +33,38 @@ public class UAccount {
     }
 
     public static void checkBalanceOperation(Product product, double debitValue) throws ProductConstraint {
-        double balanceTransaction = product.getAvailableBalance()-Math.abs(debitValue);
+        double balanceTransaction = product.getBalance()-valueForGMF(product.isExceptionGMF(), debitValue);
+        System.out.println(balanceTransaction);
         if(product.getAccountType().equalsIgnoreCase("saving") && balanceTransaction<0){
             throw new ProductConstraint("Your balance must be at least 0. You have $ "+product.getAvailableBalance()+" available.");
         }else if (product.getAccountType().equalsIgnoreCase("checking") && balanceTransaction<-3000000){
             throw new ProductConstraint("This account type can only overdraw up to 3000000.");
         }
-
-        if(!product.isExceptionGMF()){
-            product.setBalance(balanceTransaction*(100/99.6));
-        }else{
-            product.setBalance(balanceTransaction);
-        }
-
-
+        product.setBalance(balanceTransaction);
     }
 
+    public static double valueForGMF (boolean GMF, double applyValue){
+        applyValue=Math.abs(applyValue);
+        if(GMF) {
+            return applyValue;
+        }else {
+            System.out.println(applyValue+(applyValue/1000)*4);
+            return applyValue+(applyValue/1000)*4;
+        }
+    }
     public static void applyGMF(Product product){
         if(product.isExceptionGMF()) {
-            product.setAvailableBalance(product.getBalance());
+            if(product.getBalance()<0) {
+                product.setAvailableBalance(3000000+product.getBalance());
+            }else {
+                product.setAvailableBalance(product.getBalance());
+            }
         }else {
-            product.setAvailableBalance(product.getBalance()*0.996);
+            if(product.getBalance()<0) {
+                product.setAvailableBalance(3000000+product.getBalance());
+            }else{
+                product.setAvailableBalance(product.getBalance()- (product.getBalance()*4)/1000);
+            }
         }
 
     }
