@@ -55,6 +55,8 @@ public class ProductService implements IProductService{
 
         updateProduct.get().setExceptionGMF(product.isExceptionGMF());
 
+        UAccount.applyGMF(updateProduct.get());
+
         pRepository.save(updateProduct.get());
 
         return "Account was updated!";

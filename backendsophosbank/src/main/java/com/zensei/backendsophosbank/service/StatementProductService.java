@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,32 +32,23 @@ public class StatementProductService implements IStatementProductService{
         return spRepository.findByStatementOwner(product);
     }
 
-    @Transactional
+    @Transactional(rollbackOn = { SQLException.class })
     @Override
     public String creditToProduct(StatementProduct stProduct, Long id) throws RecordNotFound {
+
         stProduct.setStatementType("Credit");
         stProduct.setTransactiontType("Pay-in");
 
-        Optional<Product> PayInProduct=pRepository.findById(id);
+        Optional<Product> payInProduct=pRepository.findById(id);
 
-        if(PayInProduct.isEmpty()) throw new RecordNotFound("Account doesn't exist!");
+        if(payInProduct.isEmpty()) throw new RecordNotFound("Account doesn't exist!");
 
-        PayInProduct.get().setBalance(PayInProduct.get().getBalance()+Math.abs(stProduct.getTransactionValue()));
-
-        UAccount.applyGMF(PayInProduct.get());
-
-        stProduct.setBalance(PayInProduct.get().getBalance());
-        stProduct.setAvailableBalance(PayInProduct.get().getAvailableBalance());
-        stProduct.setDescription("Pay-in");
-        stProduct.setStatementOwner(PayInProduct.get());
-
-        pRepository.save(PayInProduct.get());
-
-        spRepository.save(stProduct);
+        operationCredit(payInProduct.get(),stProduct,"Pay-in");
 
         return "Pay-in account "+stProduct.getStatementOwner().getAccountNumber()+" successfully";
     }
 
+    @Transactional(rollbackOn = { SQLException.class })
     @Override
     public String debitFromProduct(StatementProduct stProduct, Long id) throws RecordNotFound, ProductConstraint {
 
@@ -67,21 +59,66 @@ public class StatementProductService implements IStatementProductService{
 
         if(withdrawal.isEmpty()) throw new RecordNotFound("Account doesn't exist!");
 
-        UAccount.checkBalanceOperation(withdrawal.get(),stProduct.getTransactionValue());
-
-        UAccount.applyGMF(withdrawal.get());
-
-        stProduct.setBalance(withdrawal.get().getBalance());
-        stProduct.setAvailableBalance(withdrawal.get().getAvailableBalance());
-        stProduct.setDescription("ATM");
-        stProduct.setStatementOwner(withdrawal.get());
-        stProduct.setTransactionValue(Math.abs(stProduct.getTransactionValue()));
-
-        pRepository.save(withdrawal.get());
-
-        spRepository.save(stProduct);
+        operationDebit(withdrawal.get(),stProduct,"ATM");
 
         return "Debit from "+withdrawal.get().getAccountNumber()+" Value: $"+stProduct.getTransactionValue();
+    }
+
+    @Transactional(rollbackOn = { SQLException.class })
+    @Override
+    public String transferToAccount(Long idFrom, Long idTo, StatementProduct stProduct) throws RecordNotFound, ProductConstraint {
+
+        if(idFrom.equals(idTo)) throw new ProductConstraint("You cannot transfer to the same account");
+        Optional<Product> fromAccount=pRepository.findById(idFrom);
+        Optional<Product> toAccount = pRepository.findById(idTo);
+
+        if(fromAccount.isEmpty()) throw new RecordNotFound("Account from you want to execute this operation doesn't exist!");
+        if(toAccount.isEmpty()) throw new RecordNotFound("Target account does not exist");
+
+        StatementProduct stProductTo = new StatementProduct();
+        stProductTo.setTransactionValue(stProduct.getTransactionValue());
+
+        operationDebit(fromAccount.get(),stProduct,"Money sent to "+toAccount.get().getAccountNumber());
+        operationCredit(toAccount.get(),stProductTo,"Account "+fromAccount.get().getAccountNumber()+" sent you money");
+
+        return "Transfer successful";
+    }
+
+    private void operationDebit(Product withdrawal, StatementProduct stProduct, String description) throws ProductConstraint {
+
+        UAccount.checkBalanceOperation(withdrawal,stProduct.getTransactionValue());
+
+        UAccount.applyGMF(withdrawal);
+
+        stProduct.setBalance(withdrawal.getBalance());
+        stProduct.setAvailableBalance(withdrawal.getAvailableBalance());
+        stProduct.setDescription(description);
+        stProduct.setStatementOwner(withdrawal);
+        stProduct.setTransactionValue(Math.abs(stProduct.getTransactionValue()));
+        stProduct.setStatementType("Debit");
+        stProduct.setTransactiontType("withdrawal");
+
+        pRepository.save(withdrawal);
+
+        spRepository.save(stProduct);
+    }
+
+    private void operationCredit(Product payInProduct,StatementProduct stProduct, String description){
+
+        payInProduct.setBalance(payInProduct.getBalance()+Math.abs(stProduct.getTransactionValue()));
+
+        UAccount.applyGMF(payInProduct);
+
+        stProduct.setBalance(payInProduct.getBalance());
+        stProduct.setAvailableBalance(payInProduct.getAvailableBalance());
+        stProduct.setDescription(description);
+        stProduct.setStatementOwner(payInProduct);
+        stProduct.setStatementType("Credit");
+        stProduct.setTransactiontType("Pay-in");
+
+        pRepository.save(payInProduct);
+
+        spRepository.save(stProduct);
     }
 
 
