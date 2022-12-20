@@ -45,7 +45,7 @@ public class ProductService implements IProductService{
         if(updateProduct.isEmpty()) throw new RecordNotFound("Account not exist in our system");
 
         if(product.getState().equalsIgnoreCase("cancelled")){
-            if(updateProduct.get().getBalance()!=0){
+            if(updateProduct.get().getBalance()<0 || updateProduct.get().getBalance()>1){
                 throw new ProductConstraint("You cannot cancelled this account until its balance is 0!");
             }
         }

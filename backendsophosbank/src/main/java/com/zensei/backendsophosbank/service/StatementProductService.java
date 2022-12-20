@@ -86,6 +86,8 @@ public class StatementProductService implements IStatementProductService{
 
     private void operationDebit(Product withdrawal, StatementProduct stProduct, String description) throws ProductConstraint {
 
+        if(withdrawal.getState().equalsIgnoreCase("inactive")) throw new ProductConstraint("You can´t debit from an inactive account");
+
         UAccount.checkBalanceOperation(withdrawal,stProduct.getTransactionValue());
 
         UAccount.applyGMF(withdrawal);

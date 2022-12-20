@@ -38,8 +38,10 @@ public class User {
     private String idType;
     @Column(nullable = false, length = 16)
     private String idNumber;
+    @Pattern(regexp ="^[a-zA-Z ]{2,}$", message = "This field must have at least 2 characters.")
     @Column(nullable = false, length = 100)
     private String names;
+    @Pattern(regexp ="^[a-zA-Z ]{2,}$", message = "This field must have at least 2 characters.")
     @Column(nullable = false, length = 100)
     private String lastNames;
     @Column(nullable = false)
