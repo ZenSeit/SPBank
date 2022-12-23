@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -25,8 +26,8 @@ public class UserService implements IUserService {
 
     @Override
     public String saveUser(User user) throws UserConstraint {
-        Optional<User> verifiedUser=uRepository.findByEmail(user.getEmail());
-        if(verifiedUser.isPresent()) throw new UserConstraint("Email already exist!. Choose other to register");
+        Optional<User> verifiedUser=uRepository.findByIdNumber(user.getIdNumber());
+        if(verifiedUser.isPresent()) throw new UserConstraint("There is a user registered with this id number.");
         if(Period.between(user.getBirthDate(), LocalDate.now()).getYears()<18){
             throw new UserConstraint("You must be at least 18 years old to register in this Bank");
         }
@@ -69,5 +70,10 @@ public class UserService implements IUserService {
 
         uRepository.deleteById(verifiedUser.get().getId());
         return "User deleted";
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return uRepository.findAll();
     }
 }

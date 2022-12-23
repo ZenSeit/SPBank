@@ -19,6 +19,11 @@ public class UserController {
 
     private final UserService iUser;
 
+    @GetMapping
+    public ResponseEntity getUsers(){
+        return ResponseEntity.ok(iUser.getAllUsers());
+    }
+
     @PostMapping
     public ResponseEntity signUpUser(@RequestBody @Valid User us) throws UserConstraint {
         return ResponseEntity.ok(iUser.saveUser(us));

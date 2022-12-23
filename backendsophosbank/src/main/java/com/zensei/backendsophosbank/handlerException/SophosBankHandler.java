@@ -17,6 +17,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class SophosBankHandler {
 
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> missingField(MethodArgumentNotValidException ex){
@@ -55,6 +56,12 @@ public class SophosBankHandler {
     @ExceptionHandler(MissingPathVariableException.class)
     public String badPath(MissingPathVariableException ex){
         return "Your request is incorrect.";
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NullPointerException.class)
+    public String badField(NullPointerException ex){
+        return "Please verify sending data again";
     }
 
 

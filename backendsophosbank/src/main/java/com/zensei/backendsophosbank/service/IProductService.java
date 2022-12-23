@@ -17,6 +17,8 @@ public interface IProductService {
 
     List<Product> listAccounts();
 
+    List<Product> listAccountsByOwner(Long owner) throws RecordNotFound;
+
     Optional<Product> getAccount(Long idProduct);
 
 }

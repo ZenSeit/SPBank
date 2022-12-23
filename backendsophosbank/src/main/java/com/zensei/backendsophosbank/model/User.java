@@ -4,6 +4,8 @@ package com.zensei.backendsophosbank.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -27,6 +29,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE users SET deleted_at=now() WHERE id = ?")
 public class User {
@@ -50,6 +53,7 @@ public class User {
     @NotNull(message = "Email is missing")
     @Pattern(regexp = "^[a-z0-9]+(?:[._][a-z0-9]+)*@(?:\\w+\\.)+\\w{2,5}$",message = "Email format isn't correct. Type a valid email = abc@email.com")
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Column(length = 10)
     private String rol="client";
@@ -60,11 +64,11 @@ public class User {
     private LocalDateTime modifiedAt;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private Set<Product> myProducts;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "modifiedBy")
+    @OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY)
     private Set<Product> myProductsEdit;
 
 }

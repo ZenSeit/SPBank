@@ -25,8 +25,13 @@ public class ProductController {
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity getUser(@PathVariable Long id){
+    public ResponseEntity getAccount(@PathVariable Long id){
         return new ResponseEntity(pService.getAccount(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "user/{id}")
+    public ResponseEntity getAccountsByUser(@PathVariable Long id) throws RecordNotFound {
+        return new ResponseEntity(pService.listAccountsByOwner(id), HttpStatus.OK);
     }
 
     @PostMapping(value = "{id}")

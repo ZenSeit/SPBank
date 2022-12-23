@@ -77,6 +77,17 @@ public class ProductService implements IProductService{
     }
 
     @Override
+    public List<Product> listAccountsByOwner(Long owner) throws RecordNotFound {
+
+        Optional<User> ownerProduct = uRepository.findById(owner);
+
+        if(ownerProduct.isEmpty()) throw new RecordNotFound("User doesn't exist!");
+
+        return pRepository.findByOwnerOrderByAvailableBalanceDesc(ownerProduct.get());
+    }
+
+
+    @Override
     public Optional<Product> getAccount(Long idProduct) {
         return pRepository.findById(idProduct);
     }
