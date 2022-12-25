@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
 } from '@angular/material/dialog';
 import { User } from 'src/app/Models/user.interface';
 import { NewUserFormComponent } from '../../forms/new-user-form/new-user-form.component';

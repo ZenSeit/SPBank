@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Product } from 'src/app/Models/product.interface';
-import { DepositFormComponent } from '../../forms/deposit-form/deposit-form.component';
+import { DebitFormComponent } from '../../forms/debit-form/debit-form.component';
 
 @Component({
-  selector: 'app-credit-account-buttom',
-  templateUrl: './credit-account-buttom.component.html',
-  styleUrls: ['./credit-account-buttom.component.scss']
+  selector: 'app-debit-account-buttom',
+  templateUrl: './debit-account-buttom.component.html',
+  styleUrls: ['./debit-account-buttom.component.scss']
 })
-export class CreditAccountButtomComponent {
+export class DebitAccountButtomComponent {
 
-  @Output() infoCredit = new EventEmitter<any>();
+  @Output() infoDebit = new EventEmitter<any>();
   @Input() Account:Product | undefined
 
 
@@ -19,14 +19,14 @@ export class CreditAccountButtomComponent {
   openDialog(): void {
 
     console.log(this.Account);
-    const dialogRef = this.dialog.open(DepositFormComponent, {
+    const dialogRef = this.dialog.open(DebitFormComponent, {
       data: { Account: this.Account},
     }
     );
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
-      if (result) this.infoCredit.emit(result);
+      if (result) this.infoDebit.emit(result);
     });
   }
 

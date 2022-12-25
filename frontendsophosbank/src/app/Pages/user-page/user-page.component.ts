@@ -46,13 +46,19 @@ export class UserPageComponent implements OnInit {
       this.userInfo = obs;
     });
 
-    this.accountService.getAccountsByUser(this.idUser).subscribe(
+    this.getAccountsByUser(this.idUser)
+
+    
+  }
+
+  getAccountsByUser(idUser:number){
+    this.accountService.getAccountsByUser(idUser).subscribe(
       (obs) => (this.userAccounts = obs)
       //(error: HttpErrorResponse) => this.router.navigate(['home'])
     );
   }
 
-  getIdAccount(id: number) {
+  getFullInfoAccountById(id: number) {
     this.accountService
       .getAccountById(id)
       .subscribe((obs) => (this.selectedAccount = obs));
@@ -61,4 +67,27 @@ export class UserPageComponent implements OnInit {
       .getAllStatementsByAccount(id)
       .subscribe((obs) => (this.transactionsAccount = obs));
   }
+
+  creditToAccount(info:any){
+    this.transactionsService.creditToAccount(info).subscribe(
+      (obs) => {
+        console.log(obs)
+        this.getFullInfoAccountById(info.idAccount)
+        this.getAccountsByUser(this.idUser)
+      },
+      (error: HttpErrorResponse) => console.log(error)
+    )
+  }
+
+  debitFromAccount(info:any){
+    this.transactionsService.debitFromAccount(info).subscribe(
+      (obs) => {
+        console.log(obs)
+        this.getFullInfoAccountById(info.idAccount)
+        this.getAccountsByUser(this.idUser)
+      },
+      (error: HttpErrorResponse) => console.log(error.error)
+    )
+  }
+
 }

@@ -14,4 +14,22 @@ export class TransactionService {
     return this.http.get(environment.url+`statement?idAccount=${id}`)
   }
 
+  creditToAccount(infoTransaction:any):Observable<any>{
+
+    let body={
+      transactionValue:infoTransaction?.transactionValue
+    }
+
+    return this.http.post(environment.url+`statement/${infoTransaction?.idAccount}/credit`,body,{responseType: 'text'})
+  }
+
+  debitFromAccount(infoTransaction:any):Observable<any>{
+
+    let body={
+      transactionValue:infoTransaction?.transactionValue
+    }
+
+    return this.http.post(environment.url+`statement/${infoTransaction?.idAccount}/debit`,body,{responseType: 'text'})
+  }
+
 }

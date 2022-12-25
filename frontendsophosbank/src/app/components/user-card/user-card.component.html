@@ -11,5 +11,9 @@
       <div class="GMF-section">{{selectedAccount?.exceptionGMF ? 'Exenta' : 'No exenta'}}</div>
     </div>
   </div>
+  <app-credit-account-buttom [Account]="selectedAccount" (infoCredit)="setInfoCredit($event)"></app-credit-account-buttom>
+
+  <app-debit-account-buttom [Account]="selectedAccount" (infoDebit)="setInfoDebit($event)" ></app-debit-account-buttom>
+
 
 </div>

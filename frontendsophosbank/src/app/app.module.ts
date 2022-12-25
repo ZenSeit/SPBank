@@ -28,6 +28,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NewUserFormComponent } from './components/forms/new-user-form/new-user-form.component';
 import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CreditAccountButtomComponent } from './components/modals/credit-account-buttom/credit-account-buttom.component';
+import { DepositFormComponent } from './components/forms/deposit-form/deposit-form.component';
+import { DebitAccountButtomComponent } from './components/modals/debit-account-buttom/debit-account-buttom.component';
+import { DebitFormComponent } from './components/forms/debit-form/debit-form.component';
 
 
 @NgModule({
@@ -43,7 +46,10 @@ import { CreditAccountButtomComponent } from './components/modals/credit-account
     TransactionsAccountTableComponent,
     NewUserButtonComponent,
     NewUserFormComponent,
-    CreditAccountButtomComponent
+    CreditAccountButtomComponent,
+    DepositFormComponent,
+    DebitAccountButtomComponent,
+    DebitFormComponent
   ],
   imports: [
     BrowserModule,

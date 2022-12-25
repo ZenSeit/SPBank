@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./new-user-form.component.scss'],
 })
 export class NewUserFormComponent {
+  
   createUser: FormGroup = new FormGroup({});
 
   maxDate = new Date(new Date(2022, 11, 23).getTime() - 568036800000);

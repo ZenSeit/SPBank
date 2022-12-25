@@ -5,12 +5,20 @@
       <div class="left-column">
         <app-accounts-table
           [accountsByUser]="userAccounts"
-          (idAccount)="getIdAccount($event)"
+          (idAccount)="getFullInfoAccountById($event)"
         ></app-accounts-table>
         <button mat-raised-button color="warn">Accent</button>
       </div>
       <div class="rigth-column">
-        <app-user-card [selectedAccount]="selectedAccount"></app-user-card>
+
+        <ng-container *ngIf="selectedAccount;else msgEmpty">
+          <app-user-card [selectedAccount]="selectedAccount" (infoCredit)="creditToAccount($event)" (infoDebit)="debitFromAccount($event)"></app-user-card>
+        </ng-container>
+        <ng-template #msgEmpty>
+          <h3>Selecciona una cuenta para ver mas informacion</h3>
+        </ng-template>
+
+        
       </div>
     </div>
 
