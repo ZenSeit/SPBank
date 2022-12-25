@@ -47,10 +47,11 @@ public class UserService implements IUserService {
 
         if(verifiedUser.isEmpty()) throw new RecordNotFound("User isn't in DB");
 
-        verifiedUser.get().setIdNumber(user.getIdNumber());
+        //verifiedUser.get().setIdNumber(user.getIdNumber());
         verifiedUser.get().setIdType(user.getIdType());
-        verifiedUser.get().setNames(user.getNames());
-        verifiedUser.get().setLastNames(user.getLastNames());
+        verifiedUser.get().setEmail(user.getEmail());
+        //verifiedUser.get().setNames(user.getNames());
+        //verifiedUser.get().setLastNames(user.getLastNames());
 
         uRepository.save(verifiedUser.get());
 
