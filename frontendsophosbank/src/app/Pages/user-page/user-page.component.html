@@ -1,0 +1,29 @@
+<p>user-page works!</p>
+<ng-container *ngIf="userAccounts.length >0; else templateA">
+  <div class="main-container">
+    <div class="Account-container">
+      <div class="left-column">
+        <app-accounts-table
+          [accountsByUser]="userAccounts"
+          (idAccount)="getIdAccount($event)"
+        ></app-accounts-table>
+        <button mat-raised-button color="warn">Accent</button>
+      </div>
+      <div class="rigth-column">
+        <app-user-card [selectedAccount]="selectedAccount"></app-user-card>
+      </div>
+    </div>
+
+    <app-transactions-account-table
+      [transactionByAccount]="transactionsAccount"
+    ></app-transactions-account-table>
+  </div>
+</ng-container>
+<ng-template #templateA>
+  <div class="main-container">
+    <div class="info-container">
+      <h3>No hay cuentas asociadas al usuario, crea una ahora!</h3>
+      <button mat-raised-button color="accent">Accent</button>
+    </div>
+  </div>
+</ng-template>

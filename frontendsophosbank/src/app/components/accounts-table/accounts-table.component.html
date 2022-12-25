@@ -1,0 +1,23 @@
+<table mat-table [dataSource]="accountsByUser" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="Numero de cuenta">
+      <th mat-header-cell *matHeaderCellDef>Numero de cuenta</th>
+      <td mat-cell *matCellDef="let element">{{ element.accountNumber }}</td>
+    </ng-container>
+  
+  
+    <ng-container matColumnDef="Tipo de cuenta">
+      <th mat-header-cell *matHeaderCellDef>Tipo de cuenta</th>
+      <td mat-cell *matCellDef="let element">{{ element.accountType }}</td>
+    </ng-container>
+  
+  
+    <ng-container matColumnDef="Modificado por">
+      <th mat-header-cell *matHeaderCellDef>Modificado por</th>
+      <td mat-cell *matCellDef="let element">{{ element.modifiedBy.names }}</td>
+    </ng-container>
+
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row (click)="selectRow(row['id'])" *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>

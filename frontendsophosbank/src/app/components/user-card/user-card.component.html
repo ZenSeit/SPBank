@@ -1,0 +1,15 @@
+<div class="card-container">
+  <div class="card-user">
+    <div class="state-section">Estado</div>
+    <div class="balance-section">Saldo: $ {{selectedAccount?.balance}}</div>
+    <div class="balanceAvailable-section">Saldo disponible: $ {{selectedAccount?.availableBalance}}</div>
+    <div class="info-section">
+      <div class="account-info">
+        <div class="account-type">{{selectedAccount?.accountType}}</div>
+        <div class="account-number">{{selectedAccount?.accountNumber}}</div>
+      </div>
+      <div class="GMF-section">{{selectedAccount?.exceptionGMF ? 'Exenta' : 'No exenta'}}</div>
+    </div>
+  </div>
+
+</div>

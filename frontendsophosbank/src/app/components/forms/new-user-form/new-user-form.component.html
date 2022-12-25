@@ -1,0 +1,47 @@
+<p>new-user-form works!</p>
+
+<form [formGroup]="createUser">
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="names" />
+      <mat-error *ngIf="names?.errors && names?.touched">"Ingresa un nombre"</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Apellidos</mat-label>
+      <input matInput formControlName="lastNames" />
+      <mat-error *ngIf="lastNames?.errors && lastNames?.touched">"Ingresa apellidos"</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="email?.errors && email?.touched">"Ingresa un email"</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password" />
+      <mat-error *ngIf="password?.errors && password?.touched">"Contraseña"</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo de documento</mat-label>
+      <input matInput formControlName="idType" />
+      <mat-error *ngIf="idType?.errors && idType?.touched">"Selecciona el tipo de documento"</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Numero de documento</mat-label>
+      <input matInput formControlName="idNumber" type="number" />
+      <mat-error *ngIf="idNumber?.errors && idNumber?.touched">"Numero de documento"</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Selecciona tu fecha de nacimiento</mat-label>
+      <input matInput formControlName="birthDate" [matDatepicker]="picker" [max]='maxDate'>
+      <mat-error *ngIf="birthDay?.errors && birthDay?.touched">"Debes ser mayor de edad"</mat-error>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+    <button mat-button [mat-dialog-close]="this.createUser.getRawValue()" [disabled]="this.createUser.invalid" >Crear usuario</button>
+  
+  </form>
