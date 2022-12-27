@@ -34,7 +34,7 @@ public class StatementProductController {
     }
 
     @PostMapping(value = "{id}/transfer")
-    public ResponseEntity transferToAccount(@PathVariable Long id, @RequestBody StatementProduct stObject, @RequestParam Long toAccount) throws ProductConstraint, RecordNotFound {
+    public ResponseEntity transferToAccount(@PathVariable Long id, @RequestBody StatementProduct stObject, @RequestParam String toAccount) throws ProductConstraint, RecordNotFound {
         return new ResponseEntity(spService.transferToAccount(id,toAccount,stObject),HttpStatus.OK);
     }
 

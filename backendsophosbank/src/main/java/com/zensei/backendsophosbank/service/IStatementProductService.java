@@ -15,6 +15,6 @@ public interface IStatementProductService {
 
     String debitFromProduct(StatementProduct stProduct,Long id) throws RecordNotFound, ProductConstraint;
 
-    String transferToAccount(Long idFrom, Long idTo, StatementProduct stProduct) throws RecordNotFound, ProductConstraint;
+    String transferToAccount(Long idFrom, String idTo, StatementProduct stProduct) throws RecordNotFound, ProductConstraint;
 
 }

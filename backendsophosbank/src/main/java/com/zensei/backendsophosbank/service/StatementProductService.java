@@ -39,9 +39,9 @@ public class StatementProductService implements IStatementProductService{
         stProduct.setStatementType("Credit");
         stProduct.setTransactiontType("Pay-in");
 
-        Optional<Product> payInProduct=pRepository.findById(id);
+        Optional<Product> payInProduct=pRepository.findByIdNotCancelled(id);
 
-        if(payInProduct.isEmpty()) throw new RecordNotFound("Account doesn't exist!");
+        if(payInProduct.isEmpty()) throw new RecordNotFound("Account doesn't exist! or is cancelled");
 
         operationCredit(payInProduct.get(),stProduct,"Pay-in");
 
@@ -55,9 +55,9 @@ public class StatementProductService implements IStatementProductService{
         stProduct.setStatementType("Debit");
         stProduct.setTransactiontType("withdrawal");
 
-        Optional<Product> withdrawal=pRepository.findById(id);
+        Optional<Product> withdrawal=pRepository.findByIdNotCancelled(id);
 
-        if(withdrawal.isEmpty()) throw new RecordNotFound("Account doesn't exist!");
+        if(withdrawal.isEmpty()) throw new RecordNotFound("Account doesn't exist! or is cancelled");
 
         operationDebit(withdrawal.get(),stProduct,"ATM");
 
@@ -66,14 +66,15 @@ public class StatementProductService implements IStatementProductService{
 
     @Transactional(rollbackOn = { SQLException.class })
     @Override
-    public String transferToAccount(Long idFrom, Long idTo, StatementProduct stProduct) throws RecordNotFound, ProductConstraint {
+    public String transferToAccount(Long idFrom, String idTo, StatementProduct stProduct) throws RecordNotFound, ProductConstraint {
 
-        if(idFrom.equals(idTo)) throw new ProductConstraint("You cannot transfer to the same account");
-        Optional<Product> fromAccount=pRepository.findById(idFrom);
-        Optional<Product> toAccount = pRepository.findById(idTo);
+        Optional<Product> fromAccount=pRepository.findByIdNotCancelled(idFrom);
+        Optional<Product> toAccount = pRepository.findByAccountNumber(idTo);
 
-        if(fromAccount.isEmpty()) throw new RecordNotFound("Account from you want to execute this operation doesn't exist!");
-        if(toAccount.isEmpty()) throw new RecordNotFound("Target account does not exist");
+        if(fromAccount.isEmpty()) throw new RecordNotFound("Account from you want to execute this operation doesn't exist or is cancelled!");
+        if(toAccount.isEmpty() || toAccount.get().getState().equalsIgnoreCase("cancelled")) throw new RecordNotFound("Target account does not exist or is cancelled");
+
+        if(fromAccount.get().getAccountNumber().equalsIgnoreCase(toAccount.get().getAccountNumber())) throw new ProductConstraint("You cannot transfer to the same account");
 
         StatementProduct stProductTo = new StatementProduct();
         stProductTo.setTransactionValue(stProduct.getTransactionValue());
