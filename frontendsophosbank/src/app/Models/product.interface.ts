@@ -2,16 +2,16 @@ import { User } from "./user.interface";
 
 export interface Product {
     
-    id:number,
+    id?:number,
     accountType: string,
-    accountNumber:string,
+    accountNumber?:string,
     owner:User,
     state:string,
     balance:number,
-    availableBalance:number,
+    availableBalance?:number,
     exceptionGMF:boolean,
-    modifiedAt:Date,
-    createdAt:Date,
+    modifiedAt?:Date,
+    createdAt?:Date,
     modifiedBy:User
 
 }

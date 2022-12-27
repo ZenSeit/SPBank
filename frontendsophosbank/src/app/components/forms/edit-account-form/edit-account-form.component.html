@@ -1,0 +1,24 @@
+<form [formGroup]="editedAccount">
+    
+<h3>Numero de cuenta {{this.data.Account.accountNumber}}</h3>
+    <mat-form-field appearance="fill">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="state">
+        <mat-option *ngFor="let stAccount of this.stateAccount" [value]="stAccount.sendValue">
+          {{stAccount.showValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Exenta 4x1000</mat-label>
+      <mat-select formControlName="exceptionGMF">
+        <mat-option *ngFor="let ex of this.exGMF" [value]="ex.sendValue">
+          {{ex.showValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  
+    <button mat-button [mat-dialog-close]="this.editedAccount.getRawValue()" [disabled]="this.editedAccount.invalid" >Crear cuenta</button>
+  
+  </form>

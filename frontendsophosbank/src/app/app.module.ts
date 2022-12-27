@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http'
@@ -10,12 +10,17 @@ import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { UsersPageComponent } from './Pages/users-page/users-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs)
+
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSelectModule} from '@angular/material/select';
 
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { UserPageComponent } from './Pages/user-page/user-page.component';
@@ -31,6 +36,14 @@ import { CreditAccountButtomComponent } from './components/modals/credit-account
 import { DepositFormComponent } from './components/forms/deposit-form/deposit-form.component';
 import { DebitAccountButtomComponent } from './components/modals/debit-account-buttom/debit-account-buttom.component';
 import { DebitFormComponent } from './components/forms/debit-form/debit-form.component';
+import { TransferFormComponent } from './components/forms/transfer-form/transfer-form.component';
+import { TransferAccountButtomComponent } from './components/modals/transfer-account-buttom/transfer-account-buttom.component';
+import { NewAccountButtomComponent } from './components/modals/new-account-buttom/new-account-buttom.component';
+import { NewAccountFormComponent } from './components/forms/new-account-form/new-account-form.component';
+import { EditAccountButtomComponent } from './components/modals/edit-account-buttom/edit-account-buttom.component';
+import { EditAccountFormComponent } from './components/forms/edit-account-form/edit-account-form.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { AccountTypeESPipe } from './pipes/account-type-es.pipe';
 
 
 @NgModule({
@@ -49,7 +62,14 @@ import { DebitFormComponent } from './components/forms/debit-form/debit-form.com
     CreditAccountButtomComponent,
     DepositFormComponent,
     DebitAccountButtomComponent,
-    DebitFormComponent
+    DebitFormComponent,
+    TransferFormComponent,
+    TransferAccountButtomComponent,
+    NewAccountButtomComponent,
+    NewAccountFormComponent,
+    EditAccountButtomComponent,
+    EditAccountFormComponent,
+    AccountTypeESPipe
   ],
   imports: [
     BrowserModule,
@@ -66,8 +86,13 @@ import { DebitFormComponent } from './components/forms/debit-form/debit-form.com
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [
+    {
+      provide: LOCALE_ID, useValue:'es'
+    }
   ],
   bootstrap: [AppComponent]
 })

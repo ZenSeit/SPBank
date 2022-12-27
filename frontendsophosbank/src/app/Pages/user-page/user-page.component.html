@@ -1,5 +1,4 @@
-<p>user-page works!</p>
-<ng-container *ngIf="userAccounts.length >0; else templateA">
+<ng-container *ngIf="userAccounts.length > 0; else templateA">
   <div class="main-container">
     <div class="Account-container">
       <div class="left-column">
@@ -7,18 +6,23 @@
           [accountsByUser]="userAccounts"
           (idAccount)="getFullInfoAccountById($event)"
         ></app-accounts-table>
-        <button mat-raised-button color="warn">Accent</button>
+        <app-new-account-buttom [ownerUser]="userInfo" (infoNewAccount)="createAccount($event)" [thereIsGMF]="exeAccount.length>0" ></app-new-account-buttom>
       </div>
       <div class="rigth-column">
-
-        <ng-container *ngIf="selectedAccount;else msgEmpty">
-          <app-user-card [selectedAccount]="selectedAccount" (infoCredit)="creditToAccount($event)" (infoDebit)="debitFromAccount($event)"></app-user-card>
+        <ng-container *ngIf="selectedAccount; else msgEmpty">
+          <app-user-card
+            [selectedAccount]="selectedAccount"
+            [exeGMF]="exeAccount.length>0"
+            [prueba]="exeAccount"
+            (infoCredit)="creditToAccount($event)"
+            (infoDebit)="debitFromAccount($event)"
+            (infoTransfer)="transferToAccount($event)"
+            (infoEditAccount)="editAccount($event)"
+          ></app-user-card>
         </ng-container>
         <ng-template #msgEmpty>
           <h3>Selecciona una cuenta para ver mas informacion</h3>
         </ng-template>
-
-        
       </div>
     </div>
 
@@ -31,7 +35,7 @@
   <div class="main-container">
     <div class="info-container">
       <h3>No hay cuentas asociadas al usuario, crea una ahora!</h3>
-      <button mat-raised-button color="accent">Accent</button>
+      <app-new-account-buttom [ownerUser]="userInfo" (infoNewAccount)="createAccount($event)" [thereIsGMF]="exeAccount.length>0"></app-new-account-buttom>
     </div>
   </div>
 </ng-template>

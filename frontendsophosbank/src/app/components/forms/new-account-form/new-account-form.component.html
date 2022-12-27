@@ -1,0 +1,28 @@
+<form [formGroup]="createAccount">
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Saldo de apertura</mat-label>
+      <input matInput formControlName="balance" type="number" />
+      <mat-error *ngIf="balance?.errors && balance?.touched">"Ingresa apellidos"</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo de cuenta</mat-label>
+      <mat-select formControlName="accountType">
+        <mat-option *ngFor="let acType of this.acTypes" [value]="acType.sendValue">
+          {{acType.showValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Exenta 4x1000</mat-label>
+      <mat-select formControlName="exceptionGMF">
+        <mat-option *ngFor="let ex of this.exGMF" [value]="ex.sendValue">
+          {{ex.showValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  
+    <button mat-button [mat-dialog-close]="this.createAccount.getRawValue()" [disabled]="this.createAccount.invalid" >Crear cuenta</button>
+  
+  </form>

@@ -1,8 +1,8 @@
 <div class="card-container">
   <div class="card-user">
-    <div class="state-section">Estado</div>
-    <div class="balance-section">Saldo: $ {{selectedAccount?.balance}}</div>
-    <div class="balanceAvailable-section">Saldo disponible: $ {{selectedAccount?.availableBalance}}</div>
+    <div [ngClass]="{'color':'red'}" >{{selectedAccount?.state}}</div>
+    <div class="balance-section">Saldo: $ {{selectedAccount?.balance | currency:'COP'}}</div>
+    <div class="balanceAvailable-section">Saldo disponible: $ {{selectedAccount?.availableBalance | currency:'COP'}}</div>
     <div class="info-section">
       <div class="account-info">
         <div class="account-type">{{selectedAccount?.accountType}}</div>
@@ -11,9 +11,20 @@
       <div class="GMF-section">{{selectedAccount?.exceptionGMF ? 'Exenta' : 'No exenta'}}</div>
     </div>
   </div>
-  <app-credit-account-buttom [Account]="selectedAccount" (infoCredit)="setInfoCredit($event)"></app-credit-account-buttom>
+  <ng-container *ngIf="selectedAccount?.state!=='cancelled'">
 
-  <app-debit-account-buttom [Account]="selectedAccount" (infoDebit)="setInfoDebit($event)" ></app-debit-account-buttom>
+    <ng-container *ngIf="selectedAccount?.state!=='inactive'">
+      
+      <app-debit-account-buttom [Account]="selectedAccount" (infoDebit)="setInfoDebit($event)" ></app-debit-account-buttom>
+    
+      <app-transfer-account-buttom [Account]="selectedAccount" (infoTransfer)="transferToAccount($event)"></app-transfer-account-buttom>
+      
+    </ng-container>
+    
+    <app-credit-account-buttom [Account]="selectedAccount" (infoCredit)="setInfoCredit($event)"></app-credit-account-buttom>
+  
+    <app-edit-account-buttom [Account]="selectedAccount" [checkGMF]="exeGMF" (infoEditAccount)="setInfoEditAccount($event)"></app-edit-account-buttom>
+  </ng-container>
 
 
 </div>
