@@ -19,7 +19,7 @@ import java.util.Map;
 @Component
 public class UtilsJWT {
 
-    public static final String ACCESS_TOKEN_SECRET = "myAppSophosBank87*0395784";
+    public static final String ACCESS_TOKEN_SECRET = "myAppSophosBank87*0395784awqsdfghcvxfdfr";
     public static final long JWT_TOKEN_VALIDITY = 1 * 60 * 60;
 
     public static String createToken(String name,String email,Long id){
