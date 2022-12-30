@@ -42,7 +42,7 @@ public class UtilsJWT {
     public static UsernamePasswordAuthenticationToken getAuthentication (String token){
         try{
             Claims claims = Jwts.parser()
-                    .setSigningKey(ACCESS_TOKEN_SECRET)
+                    .setSigningKey(ACCESS_TOKEN_SECRET.getBytes())
                     .parseClaimsJws(token)
                     .getBody();
 
