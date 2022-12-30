@@ -8,6 +8,9 @@ import com.zensei.backendsophosbank.repository.ProductRepository;
 import com.zensei.backendsophosbank.repository.UserRepository;
 import com.zensei.backendsophosbank.utils.UAccount;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -101,4 +104,5 @@ public class ProductService implements IProductService{
     public Optional<Product> getAccount(Long idProduct) {
         return pRepository.findById(idProduct);
     }
+
 }

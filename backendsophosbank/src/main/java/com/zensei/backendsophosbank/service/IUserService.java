@@ -11,7 +11,7 @@ public interface IUserService {
 
     String saveUser(User user) throws UserConstraint;
     Optional<User> getUser(Long idUser);
-    String modifyUser(User user) throws RecordNotFound;
+    String modifyUser(User user) throws RecordNotFound, UserConstraint;
     String deleteUser(Long idUser) throws RecordNotFound, UserConstraint;
     List<User> getAllUsers();
 }

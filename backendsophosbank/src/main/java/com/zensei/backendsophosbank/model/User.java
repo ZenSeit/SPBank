@@ -17,9 +17,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Set;
 
 
@@ -32,14 +35,14 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE users SET deleted_at=now() WHERE id = ?")
-public class User {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, length = 4)
     private String idType;
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false, length = 16,unique = true)
     private String idNumber;
     @Pattern(regexp ="^[a-zA-Z ]{2,}$", message = "This field must have at least 2 characters.")
     @Column(nullable = false, length = 100)
@@ -49,6 +52,7 @@ public class User {
     private String lastNames;
     @Column(nullable = false)
     private LocalDate birthDate;
+
     @Column(nullable = false, unique = true , length = 100)
     @NotNull(message = "Email is missing")
     @Pattern(regexp = "^[a-z0-9]+(?:[._][a-z0-9]+)*@(?:\\w+\\.)+\\w{2,5}$",message = "Email format isn't correct. Type a valid email = abc@email.com")
@@ -70,5 +74,6 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY)
     private Set<Product> myProductsEdit;
+
 
 }
