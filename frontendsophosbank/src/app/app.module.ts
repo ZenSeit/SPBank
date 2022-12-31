@@ -1,7 +1,7 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +44,8 @@ import { EditAccountButtomComponent } from './components/modals/edit-account-but
 import { EditAccountFormComponent } from './components/forms/edit-account-form/edit-account-form.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AccountTypeESPipe } from './pipes/account-type-es.pipe';
+import { LoginFormComponent } from './components/forms/login-form/login-form.component';
+import { MyInterceptorInterceptor } from './interceptors/my-interceptor.interceptor';
 
 
 @NgModule({
@@ -69,7 +71,8 @@ import { AccountTypeESPipe } from './pipes/account-type-es.pipe';
     NewAccountFormComponent,
     EditAccountButtomComponent,
     EditAccountFormComponent,
-    AccountTypeESPipe
+    AccountTypeESPipe,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +95,11 @@ import { AccountTypeESPipe } from './pipes/account-type-es.pipe';
   providers: [
     {
       provide: LOCALE_ID, useValue:'es'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyInterceptorInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

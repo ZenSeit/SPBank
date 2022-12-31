@@ -14,6 +14,8 @@ export class NewUserButtonComponent {
   @Output() infoForm = new EventEmitter<User>();
   @Input() isEdit: boolean = false;
   @Input() editUser: any;
+  @Input() tittleButton: string ='Crear nuevo usuario';
+  
 
   constructor(public dialog: MatDialog) {}
 

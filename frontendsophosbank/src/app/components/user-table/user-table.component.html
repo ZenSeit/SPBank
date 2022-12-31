@@ -27,7 +27,7 @@
     <th mat-header-cell *matHeaderCellDef>Acciones</th>
     <td mat-cell *matCellDef="let element">
       <button (click)="goToUserAccounts(element?.id)">+</button>
-      <app-new-user-button [editUser]="element" (infoForm)="editUser($event)"></app-new-user-button>
+      <app-new-user-button [editUser]="element" (infoForm)="editUser($event)" tittleButton="Editar usuario"></app-new-user-button>
       <button (click)="deleteUser(element?.id)">X</button>
     </td>
   </ng-container>

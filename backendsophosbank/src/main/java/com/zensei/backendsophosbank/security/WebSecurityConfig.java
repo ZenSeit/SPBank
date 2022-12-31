@@ -4,18 +4,21 @@ import com.zensei.backendsophosbank.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -45,7 +48,6 @@ public class WebSecurityConfig{
 
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity, AuthenticationManager authManager) throws Exception {
 
@@ -53,7 +55,9 @@ public class WebSecurityConfig{
         jwtAuthenticationFilter.setAuthenticationManager(authManager);
         jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
+
         return httpSecurity.csrf().disable()
+                //.headers(headers -> headers.httpStrictTransportSecurity().disable())
                 .addFilterBefore(new CorsFilter(configurationSource()), LogoutFilter.class)
                 .authorizeRequests()
                 .requestMatchers(HttpMethod.POST,"/api/v1/user").permitAll()
@@ -73,13 +77,19 @@ public class WebSecurityConfig{
 
     private CorsConfigurationSource configurationSource() {
 
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        final CorsConfiguration config = new CorsConfiguration();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        //config.setAllowCredentials(true);
         config.addAllowedOrigin("*");
+        config.addExposedHeader("Authorization");
+        config.addExposedHeader("Access-Control-Allow-Origin");
         config.addAllowedHeader("*");
+        config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
         config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+        config.addAllowedHeader("Access-Control-Allow-Origin");
         source.registerCorsConfiguration("/**", config);
         return source;
     }
