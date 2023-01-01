@@ -10,6 +10,7 @@ import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { UsersPageComponent } from './Pages/users-page/users-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 registerLocaleData(localeEs)
@@ -100,7 +101,9 @@ import { MyInterceptorInterceptor } from './interceptors/my-interceptor.intercep
       provide: HTTP_INTERCEPTORS,
       useClass: MyInterceptorInterceptor,
       multi: true
-    }
+    },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })

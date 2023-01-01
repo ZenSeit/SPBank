@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Product } from 'src/app/Models/product.interface';
 import { EditAccountFormComponent } from '../../forms/edit-account-form/edit-account-form.component';
 
@@ -13,14 +14,16 @@ export class EditAccountButtomComponent {
   @Input() Account: Product | undefined;
   @Input() checkGMF: boolean = true;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,
+    private authJwt:JwtHelperService
+    ) {}
 
   openDialog(): void {
     console.log(this.checkGMF);
     const dialogRef = this.dialog.open(EditAccountFormComponent, {
       data: {
         Account: this.Account,
-        modifiedBy: 2,
+        modifiedBy: this.authJwt.decodeToken(localStorage.getItem('token')||'')?.id,
         availableGMF: this.checkGMF,
       },
     });

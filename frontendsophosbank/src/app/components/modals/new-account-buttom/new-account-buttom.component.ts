@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Product } from 'src/app/Models/product.interface';
 import { User } from 'src/app/Models/user.interface';
 import { NewAccountFormComponent } from '../../forms/new-account-form/new-account-form.component';
@@ -16,7 +17,11 @@ export class NewAccountButtomComponent {
   @Input() thereIsGMF:boolean = true
 
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,
+    
+    private authJwt:JwtHelperService
+
+    ) {}
 
   openDialog(): void {
 
@@ -24,7 +29,7 @@ export class NewAccountButtomComponent {
       {
         data:{
           ownerUser:this.ownerUser,
-          modifiedBy: 1,
+          modifiedBy: this.authJwt.decodeToken(localStorage.getItem('token')||'')?.id,
           availableGMF: this.thereIsGMF
         }
       }
