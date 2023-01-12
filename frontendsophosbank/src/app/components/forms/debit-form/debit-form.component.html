@@ -1,13 +1,14 @@
-<p>debit-form works!</p>
+<div class="form-container">
+  <h3 class="tittle-form">Cuenta numero: {{this.data?.Account.accountNumber}}</h3>
 
-<h3>Cuenta numero: {{this.data?.Account.accountNumber}}</h3>
+  <form [formGroup]="debitTransaction" class="debit-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Cantidad a debitar $:</mat-label>
+      <input matInput formControlName="transactionValue" type="number" [min]="1" />
+      <mat-error *ngIf="">"Ingresa un valor a debitar"</mat-error>
+    </mat-form-field>
+  
+    <button mat-raised-button class="debit-button" [mat-dialog-close]="this.debitTransaction.getRawValue()" [disabled]="this.debitTransaction.invalid">Retirar</button>
+  </form>
 
-<form [formGroup]="debitTransaction">
-  <mat-form-field appearance="fill">
-    <mat-label>Cantidad a debitar $:</mat-label>
-    <input matInput formControlName="transactionValue" type="number" [min]="1" />
-    <mat-error *ngIf="">"Ingresa un valor a debitar"</mat-error>
-  </mat-form-field>
-
-  <button mat-button [mat-dialog-close]="this.debitTransaction.getRawValue()" [disabled]="this.debitTransaction.invalid">Depositar</button>
-</form>
+</div>

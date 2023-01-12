@@ -6,7 +6,7 @@ export interface Product {
     accountType: string,
     accountNumber?:string,
     owner:User,
-    state:string,
+    state:number,
     balance:number,
     availableBalance?:number,
     exceptionGMF:boolean,

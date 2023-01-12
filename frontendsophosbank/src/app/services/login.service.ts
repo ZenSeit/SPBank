@@ -8,7 +8,9 @@ import { userAuth } from '../Models/userAuth.interface';
 })
 export class LoginService {
 
-  urlLogin='http://localhost:8080/login'
+  urlLogin='http://localhost:8080/login';
+
+  
 
   constructor(private http:HttpClient) { }
 

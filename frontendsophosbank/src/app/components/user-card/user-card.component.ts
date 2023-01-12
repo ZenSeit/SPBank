@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/Models/product.interface';
 import { User } from 'src/app/Models/user.interface';
+import { ACCOUNT_STATE } from 'src/app/Information/constantsToApp';
 
 @Component({
   selector: 'app-user-card',
@@ -18,6 +19,7 @@ export class UserCardComponent implements OnInit {
   @Output() infoTransfer = new EventEmitter<any>();
   @Output() infoEditAccount = new EventEmitter<any>();
 
+  acState=ACCOUNT_STATE
 
   ngOnInit(): void {
     console.log(this.prueba);

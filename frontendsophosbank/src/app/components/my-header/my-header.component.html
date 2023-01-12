@@ -1,0 +1,15 @@
+<header class="header-container">
+  <div class="myContainer">
+    <div class="left-container">
+      <ng-container *ngIf="!myToken">Bienvenido {{userName}}</ng-container>
+    </div>
+    <div class="center-container">Sophos Bank</div>
+    <div class="rigth-container">
+      <ng-container *ngIf="!myToken">
+        <button mat-raised-button (click)="cleanSession()">
+          Cerrar sesion
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</header>

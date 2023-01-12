@@ -1,13 +1,17 @@
-<p>deposit-form works!</p>
+<div class="form-container">
 
-<h3>Cuenta numero: {{this.data?.Account.accountNumber}}</h3>
+  <h3 class="tittle-form">Cuenta numero: {{this.data?.Account.accountNumber}}</h3>
 
-<form [formGroup]="depositTransaction">
+<form [formGroup]="depositTransaction" class="credit-form">
   <mat-form-field appearance="fill">
     <mat-label>Cantidad a depositar $:</mat-label>
     <input matInput formControlName="transactionValue" type="number" [min]="1" />
     <mat-error *ngIf="">"Ingresa un valor a depositar"</mat-error>
   </mat-form-field>
 
-  <button mat-button [mat-dialog-close]="this.depositTransaction.getRawValue()" [disabled]="this.depositTransaction.invalid">Depositar</button>
+  <button mat-raised-button class="credit-button" [mat-dialog-close]="this.depositTransaction.getRawValue()" [disabled]="this.depositTransaction.invalid">Depositar</button>
 </form>
+
+</div>
+
+

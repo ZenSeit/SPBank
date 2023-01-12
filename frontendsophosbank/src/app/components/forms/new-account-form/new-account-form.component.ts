@@ -39,7 +39,7 @@ export class NewAccountFormComponent {
       ],
       state: [
         {
-          value: 'active',
+          value: 2,
           disabled: false,
         }
       ],

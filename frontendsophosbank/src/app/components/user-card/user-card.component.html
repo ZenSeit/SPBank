@@ -1,30 +1,47 @@
 <div class="card-container">
   <div class="card-user">
-    <div [ngClass]="{'color':'red'}" >{{selectedAccount?.state}}</div>
-    <div class="balance-section">Saldo: $ {{selectedAccount?.balance | currency:'COP'}}</div>
-    <div class="balanceAvailable-section">Saldo disponible: $ {{selectedAccount?.availableBalance | currency:'COP'}}</div>
+    <div [class]="'state '+(selectedAccount?.state || 0 | accountState)">{{ selectedAccount?.state || 0 | accountState }}</div>
+    <div class="balance-section">
+      Saldo: $ {{ selectedAccount?.balance | currency : "COP" }}
+    </div>
+    <div class="balanceAvailable-section">
+      Saldo disponible: $
+      {{ selectedAccount?.availableBalance | currency : "COP" }}
+    </div>
     <div class="info-section">
-      <div class="account-info">
-        <div class="account-type">{{selectedAccount?.accountType}}</div>
-        <div class="account-number">{{selectedAccount?.accountNumber}}</div>
+      <div [class]="'account-info '+(selectedAccount?.accountType || 'saving')">
+        <div class="account-type">{{ selectedAccount?.accountType || 'saving' | accountTypeES }}</div>
+        <div class="account-number">{{ selectedAccount?.accountNumber }}</div>
       </div>
-      <div class="GMF-section">{{selectedAccount?.exceptionGMF ? 'Exenta' : 'No exenta'}}</div>
+      <div [class]="'GMF-section '+(selectedAccount?.exceptionGMF ? 'Si':'No')">
+        {{ selectedAccount?.exceptionGMF ? "Exenta" : "No exenta" }}
+      </div>
     </div>
   </div>
-  <ng-container *ngIf="selectedAccount?.state!=='cancelled'">
+  <div class="action-menu">
+    <ng-container *ngIf="selectedAccount?.state !== 0">
+      <ng-container *ngIf="selectedAccount?.state !== 1">
+        <app-debit-account-buttom
+          [Account]="selectedAccount"
+          (infoDebit)="setInfoDebit($event)"
+        ></app-debit-account-buttom>
 
-    <ng-container *ngIf="selectedAccount?.state!=='inactive'">
-      
-      <app-debit-account-buttom [Account]="selectedAccount" (infoDebit)="setInfoDebit($event)" ></app-debit-account-buttom>
-    
-      <app-transfer-account-buttom [Account]="selectedAccount" (infoTransfer)="transferToAccount($event)"></app-transfer-account-buttom>
-      
+        <app-transfer-account-buttom
+          [Account]="selectedAccount"
+          (infoTransfer)="transferToAccount($event)"
+        ></app-transfer-account-buttom>
+      </ng-container>
+
+      <app-credit-account-buttom
+        [Account]="selectedAccount"
+        (infoCredit)="setInfoCredit($event)"
+      ></app-credit-account-buttom>
+
+      <app-edit-account-buttom
+        [Account]="selectedAccount"
+        [checkGMF]="exeGMF"
+        (infoEditAccount)="setInfoEditAccount($event)"
+      ></app-edit-account-buttom>
     </ng-container>
-    
-    <app-credit-account-buttom [Account]="selectedAccount" (infoCredit)="setInfoCredit($event)"></app-credit-account-buttom>
-  
-    <app-edit-account-buttom [Account]="selectedAccount" [checkGMF]="exeGMF" (infoEditAccount)="setInfoEditAccount($event)"></app-edit-account-buttom>
-  </ng-container>
-
-
+  </div>
 </div>

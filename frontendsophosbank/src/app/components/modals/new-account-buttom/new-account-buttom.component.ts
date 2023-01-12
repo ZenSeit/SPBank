@@ -8,37 +8,35 @@ import { NewAccountFormComponent } from '../../forms/new-account-form/new-accoun
 @Component({
   selector: 'app-new-account-buttom',
   templateUrl: './new-account-buttom.component.html',
-  styleUrls: ['./new-account-buttom.component.scss']
+  styleUrls: ['./new-account-buttom.component.scss'],
 })
 export class NewAccountButtomComponent {
-
   @Output() infoNewAccount = new EventEmitter<any>();
-  @Input() ownerUser:User | undefined
-  @Input() thereIsGMF:boolean = true
+  @Input() ownerUser: User | undefined;
+  @Input() thereIsGMF: boolean = true;
 
+  constructor(
+    public dialog: MatDialog,
 
-  constructor(public dialog: MatDialog,
-    
-    private authJwt:JwtHelperService
-
-    ) {}
+    private authJwt: JwtHelperService
+  ) {}
 
   openDialog(): void {
-
-    const dialogRef = this.dialog.open(NewAccountFormComponent,
-      {
-        data:{
-          ownerUser:this.ownerUser,
-          modifiedBy: this.authJwt.decodeToken(localStorage.getItem('token')||'')?.id,
-          availableGMF: this.thereIsGMF
-        }
-      }
-    );
+    const dialogRef = this.dialog.open(NewAccountFormComponent, {
+      data: {
+        ownerUser: this.ownerUser,
+        modifiedBy: this.authJwt.decodeToken(
+          localStorage.getItem('token') || ''
+        )?.id,
+        availableGMF: this.thereIsGMF,
+        height: '80%',
+        minWidth: '40%',
+      },
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result) this.infoNewAccount.emit(result);
     });
   }
-
 }

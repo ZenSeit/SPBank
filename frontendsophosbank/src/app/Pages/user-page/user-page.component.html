@@ -6,7 +6,9 @@
           [accountsByUser]="userAccounts"
           (idAccount)="getFullInfoAccountById($event)"
         ></app-accounts-table>
-        <app-new-account-buttom [ownerUser]="userInfo" (infoNewAccount)="createAccount($event)" [thereIsGMF]="exeAccount.length>0" ></app-new-account-buttom>
+        <div class="action-menu">
+          <app-new-account-buttom [ownerUser]="userInfo" (infoNewAccount)="createAccount($event)" [thereIsGMF]="exeAccount.length>0"></app-new-account-buttom>
+        </div>
       </div>
       <div class="rigth-column">
         <ng-container *ngIf="selectedAccount; else msgEmpty">
@@ -21,21 +23,26 @@
           ></app-user-card>
         </ng-container>
         <ng-template #msgEmpty>
-          <h3>Selecciona una cuenta para ver mas informacion</h3>
+          <div class="infoDetails-container">
+            
+            <h3 class="msg">Selecciona una cuenta para ver mas informacion</h3>
+          </div>
         </ng-template>
       </div>
     </div>
 
     <app-transactions-account-table
       [transactionByAccount]="transactionsAccount"
+      [accountSelected]="selectedAccount"
     ></app-transactions-account-table>
   </div>
 </ng-container>
 <ng-template #templateA>
   <div class="main-container">
     <div class="info-container">
-      <h3>No hay cuentas asociadas al usuario, crea una ahora!</h3>
+      <h3 class="info-details">No hay cuentas asociadas al usuario, crea una ahora!</h3>
       <app-new-account-buttom [ownerUser]="userInfo" (infoNewAccount)="createAccount($event)" [thereIsGMF]="exeAccount.length>0"></app-new-account-buttom>
+      <button mat-raised-button routerLink="/users" class="home-button">Lista de usuarios</button>
     </div>
   </div>
 </ng-template>

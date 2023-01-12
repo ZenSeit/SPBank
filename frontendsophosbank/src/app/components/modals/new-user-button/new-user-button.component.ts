@@ -21,7 +21,9 @@ export class NewUserButtonComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(NewUserFormComponent, {
-      data: { isEdit: this.isEdit, editUser: this.editUser },
+      data: { isEdit: this.isEdit, editUser: this.editUser, tittle: this.tittleButton },
+      height:'80%',
+      minWidth:'30%'
     }
     );
 

@@ -1,0 +1,23 @@
+.usersTable-container {
+  width: 90vw;
+  margin: 1% 0 1% 0;
+}
+
+.detail-button {
+  background: rgb(0, 39, 89);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 39, 89, 1) 38%,
+    rgba(0, 0, 74, 1) 79%
+  );
+}
+
+.deleted-button{
+    background: rgb(179,0,0);
+    background: linear-gradient(180deg, rgba(179,0,0,1) 38%, rgba(201,61,0,1) 79%);
+}
+
+.hd-table{
+    background: rgb(1,71,139);
+background: linear-gradient(180deg, rgba(1,71,139,1) 38%, rgba(1,65,158,1) 79%);
+}

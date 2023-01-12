@@ -1,3 +1,5 @@
-<p>login-page works!</p>
+<div class="loginPage-container">
+    <app-login-form (infoLogin)="logging($event)"></app-login-form>
+    <app-new-user-button [isEdit]=true (infoForm)="registerUser($event)" tittleButton="Registrarse"></app-new-user-button>
 
-<app-login-form (infoLogin)="logging($event)"></app-login-form>
+</div>

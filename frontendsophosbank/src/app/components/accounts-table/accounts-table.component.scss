@@ -1,0 +1,28 @@
+.infoTable-container {
+  height: 34vh;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.No:hover {
+  cursor: pointer;
+}
+
+.Si {
+  background: rgb(88, 153, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(88, 153, 0, 1) 52%,
+    rgba(88, 153, 0, 1) 71%
+  );
+}
+
+.Si:hover {
+  background: rgb(88, 153, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(88, 153, 0, 1) 52%,
+    rgba(88, 153, 0, 1) 71%
+  );
+  cursor: pointer;
+}

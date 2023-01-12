@@ -13,7 +13,6 @@ export class MyInterceptorInterceptor implements HttpInterceptor {
   
 
     constructor() {
-        //this.token = localStorage.getItem('token');
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -25,6 +24,5 @@ export class MyInterceptorInterceptor implements HttpInterceptor {
             });
             return next.handle(modReq);
         }
-        return next.handle(req);
     }
 }

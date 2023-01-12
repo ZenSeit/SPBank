@@ -1,4 +1,14 @@
-<p>users-page works!</p>
-<app-new-user-button (infoForm)="registerNewUser($event)" [isEdit]="true"></app-new-user-button>
-<app-user-table [dataUser]="users" (idUser)="deleteUser($event)" (eUser)="editUser($event)"></app-user-table>
+<div class="users-container">
 
+    <div class="userAccion-container">
+        <app-new-user-button (infoForm)="registerNewUser($event)" [isEdit]="true"></app-new-user-button>
+
+    </div>
+
+    <div class="userInfo-container">
+        <app-user-table [dataUser]="users" (idUser)="deleteUser($event)" (eUser)="editUser($event)"></app-user-table>
+
+    </div>
+
+
+</div>

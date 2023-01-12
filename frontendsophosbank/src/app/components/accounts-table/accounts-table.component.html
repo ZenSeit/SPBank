@@ -1,4 +1,5 @@
-<table mat-table [dataSource]="accountsByUser" class="mat-elevation-z8">
+<div class="infoTable-container">
+  <table mat-table [dataSource]="accountsByUser" class="mat-elevation-z8">
 
     <ng-container matColumnDef="Numero de cuenta">
       <th mat-header-cell *matHeaderCellDef>Numero de cuenta</th>
@@ -19,5 +20,7 @@
 
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row (click)="selectRow(row['id'])" *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-row (click)="selectRow(row['id'])" [ngClass]="row['exceptionGMF']?'Si':'No'" *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+</div>
+

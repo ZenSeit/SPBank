@@ -21,6 +21,8 @@ export class DebitAccountButtomComponent {
     console.log(this.Account);
     const dialogRef = this.dialog.open(DebitFormComponent, {
       data: { Account: this.Account},
+      height:'40%',
+      minWidth:'30%'
     }
     );
 

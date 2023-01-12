@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { IDENTIFICATION_TYPES } from 'src/app/Information/constantsToApp';
 
 @Component({
   selector: 'app-new-user-form',
@@ -11,7 +12,9 @@ export class NewUserFormComponent {
   
   createUser: FormGroup = new FormGroup({});
 
-  maxDate = new Date(new Date(2022, 11, 23).getTime() - 568036800000);
+  maxDate = new Date(new Date().getTime() - 568036800000);
+
+  idTypeINF = IDENTIFICATION_TYPES
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,7 +51,7 @@ export class NewUserFormComponent {
       email: [
         {
           value: this.data.editUser ? this.data?.editUser?.email : '',
-          disabled: false,
+          disabled: !this.data?.isEdit,
         },
         Validators.compose([Validators.required, Validators.email]),
       ],
@@ -80,6 +83,13 @@ export class NewUserFormComponent {
         },
         Validators.compose([Validators.required]),
       ],
+      cellPhone: [
+        {
+          value: this.data.editUser ? this.data?.editUser.cellPhone : '',
+          disabled: false,
+        },
+        Validators.compose([Validators.required]),
+      ],
     });
   }
 
@@ -105,5 +115,8 @@ export class NewUserFormComponent {
   }
   get birthDay() {
     return this.createUser.get('birthDate');
+  }
+  get cellPhone(){
+    return this.createUser.get('cellPhone')
   }
 }

@@ -1,6 +1,8 @@
 .card-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .card-user {
@@ -14,7 +16,7 @@
   );
   border-radius: 20px;
   width: 95%;
-  min-height: 30vh;
+  min-height: 25vh;
   padding: 1%;
 }
 
@@ -38,22 +40,22 @@
   padding: 2%;
 }
 
-.balanceAvailable-section{
-    display: flex;
-    height: 50%;
-    color: white;
-    font-weight: 700;
-    font-size: 1.7em;
-    align-items: flex-end;
-    justify-content: right;
-    padding: 2%;  
+.balanceAvailable-section {
+  display: flex;
+  height: 50%;
+  color: white;
+  font-weight: 700;
+  font-size: 1.7em;
+  align-items: flex-end;
+  justify-content: right;
+  padding: 2%;
 }
 
 .info-section {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  height: 40%;
+  height: 10vh;
   border-radius: 0 0 20px 20px;
 }
 
@@ -61,11 +63,27 @@
   display: flex;
   flex-direction: column;
   font-size: 1.7em;
-  background: rgb(181,49,241);
-background: linear-gradient(180deg, rgba(181,49,241,1) 0%, rgba(59,49,254,1) 91%);
   width: 50%;
   padding: 2% 3% 2% 3%;
   border-radius: 20px;
+}
+
+.saving {
+  background: rgb(181, 49, 241);
+  background: linear-gradient(
+    180deg,
+    rgba(181, 49, 241, 1) 0%,
+    rgba(59, 49, 254, 1) 91%
+  );
+}
+
+.checking {
+  background: rgb(181, 133, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(181, 133, 0, 1) 58%,
+    rgba(193, 130, 4, 1) 75%
+  );
 }
 
 .account-type {
@@ -86,7 +104,63 @@ background: linear-gradient(180deg, rgba(181,49,241,1) 0%, rgba(59,49,254,1) 91%
   align-items: center;
   font-size: 1.7em;
   padding: 2% 3% 2% 3%;
-  background-color: greenyellow;
   margin-right: 3%;
   border-radius: 30px;
+}
+
+.Si {
+  background-color: greenyellow;
+}
+
+.No {
+  background: rgb(124, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(124, 0, 0, 1) 58%,
+    rgba(111, 0, 0, 1) 75%
+  );
+  color: white;
+}
+
+.action-menu {
+  min-width: 50%;
+  margin-top: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.state {
+  border-radius: 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+}
+
+.Activa {
+  background: rgb(2, 148, 29);
+  background: linear-gradient(
+    180deg,
+    rgba(2, 148, 29, 1) 58%,
+    rgba(8, 150, 0, 1) 75%
+  );
+}
+
+.Inactiva {
+  background: rgb(203, 54, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(203, 54, 0, 1) 58%,
+    rgba(214, 64, 0, 1) 75%
+  );
+}
+
+.Cancelada {
+  background: rgb(121, 121, 121);
+  background: linear-gradient(
+    180deg,
+    rgba(121, 121, 121, 1) 58%,
+    rgba(116, 116, 116, 1) 75%
+  );
 }

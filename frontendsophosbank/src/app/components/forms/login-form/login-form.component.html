@@ -1,19 +1,23 @@
-<form [formGroup]="loginUser">
-    
+<div class="login-container">
+  <form [formGroup]="loginUser" class="login-form">
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" />
-      <mat-error *ngIf="email?.errors && email?.touched">"Ingresa un correo valido"</mat-error>
+      <mat-error *ngIf="email?.errors && email?.touched"
+        >"Ingresa un correo valido"</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" type="password" />
-        <mat-error *ngIf="password?.errors && password?.touched">"Ingresa contraseña"</mat-error>
-      </mat-form-field>
-    
-  
-    <button [disabled]="this.loginUser.invalid" (click)="sendInfoLogin()" >Ingresar</button>
-  
-  </form>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" />
+      <mat-error *ngIf="password?.errors && password?.touched"
+        >"Ingresa contraseña"</mat-error
+      >
+    </mat-form-field>
 
+    <button [disabled]="this.loginUser.invalid" (click)="sendInfoLogin()">
+      Ingresar
+    </button>
+  </form>
+</div>

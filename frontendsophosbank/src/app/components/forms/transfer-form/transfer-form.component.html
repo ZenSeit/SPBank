@@ -1,19 +1,21 @@
-<p>transfer-form works!</p>
+<div class="form-container">
+  <h3 class="tittle-form">Desde cuenta numero: {{this.data?.Account.accountNumber}}</h3>
 
-<h3>Desde cuenta numero: {{this.data?.Account.accountNumber}}</h3>
+  <form [formGroup]="transferTransaction" class="transaction-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Cantidad a debitar $:</mat-label>
+      <input matInput formControlName="transactionValue" type="number" [min]="1" />
+      <mat-error *ngIf="">"Ingresa un valor a debitar"</mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Cuenta destino numero:</mat-label>
+      <input matInput formControlName="toAccount" type="text"/>
+      <mat-error *ngIf="">"Ingresa una cuenta destino"</mat-error>
+    </mat-form-field>
+  
+    <button mat-raised-button class="transfer-button" [mat-dialog-close]="this.transferTransaction.getRawValue()" [disabled]="this.transferTransaction.invalid">Transferir</button>
+  </form>
 
-<form [formGroup]="transferTransaction">
-  <mat-form-field appearance="fill">
-    <mat-label>Cantidad a debitar $:</mat-label>
-    <input matInput formControlName="transactionValue" type="number" [min]="1" />
-    <mat-error *ngIf="">"Ingresa un valor a debitar"</mat-error>
-  </mat-form-field>
+</div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Cuenta destino numero:</mat-label>
-    <input matInput formControlName="toAccount" type="text"/>
-    <mat-error *ngIf="">"Ingresa una cuenta destino"</mat-error>
-  </mat-form-field>
-
-  <button mat-button [mat-dialog-close]="this.transferTransaction.getRawValue()" [disabled]="this.transferTransaction.invalid">Depositar</button>
-</form>

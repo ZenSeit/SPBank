@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { HomePageComponent } from './Pages/home-page/home-page.component';
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { UserPageComponent } from './Pages/user-page/user-page.component';
@@ -22,10 +23,12 @@ const routes: Routes = [
   {
     path:"users",
     component: UsersPageComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'user/:id',
-    component:UserPageComponent
+    component:UserPageComponent,
+    canActivate:[AuthGuard]
   }
   
 ];

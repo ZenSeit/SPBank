@@ -14,7 +14,7 @@ export const IDENTIFICATION_TYPES=[
 ]
 
 export const ACCOUNT_STATE=[
-    {sendValue:'active',showValue:'Activa'},
-    {sendValue:'inactive',showValue:'Inactiva'},
-    {sendValue:'cancelled',showValue:'Cancelada'}
+    {sendValue:2,showValue:'Activa'},
+    {sendValue:1,showValue:'Inactiva'},
+    {sendValue:0,showValue:'Cancelada'}
 ]

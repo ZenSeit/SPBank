@@ -20,6 +20,8 @@ export class TransferAccountButtomComponent {
 
     const dialogRef = this.dialog.open(TransferFormComponent, {
       data: { Account: this.Account},
+      height:'40%',
+      minWidth:'30%'
     }
     );
 

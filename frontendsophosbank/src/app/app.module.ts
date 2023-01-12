@@ -47,6 +47,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AccountTypeESPipe } from './pipes/account-type-es.pipe';
 import { LoginFormComponent } from './components/forms/login-form/login-form.component';
 import { MyInterceptorInterceptor } from './interceptors/my-interceptor.interceptor';
+import { MyHeaderComponent } from './components/my-header/my-header.component';
+import { AccountStatePipe } from './pipes/account-state.pipe';
 
 
 @NgModule({
@@ -73,7 +75,9 @@ import { MyInterceptorInterceptor } from './interceptors/my-interceptor.intercep
     EditAccountButtomComponent,
     EditAccountFormComponent,
     AccountTypeESPipe,
-    LoginFormComponent
+    LoginFormComponent,
+    MyHeaderComponent,
+    AccountStatePipe
   ],
   imports: [
     BrowserModule,

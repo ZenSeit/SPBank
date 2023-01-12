@@ -14,17 +14,19 @@ export class EditAccountButtomComponent {
   @Input() Account: Product | undefined;
   @Input() checkGMF: boolean = true;
 
-  constructor(public dialog: MatDialog,
-    private authJwt:JwtHelperService
-    ) {}
+  constructor(public dialog: MatDialog, private authJwt: JwtHelperService) {}
 
   openDialog(): void {
     console.log(this.checkGMF);
     const dialogRef = this.dialog.open(EditAccountFormComponent, {
       data: {
         Account: this.Account,
-        modifiedBy: this.authJwt.decodeToken(localStorage.getItem('token')||'')?.id,
+        modifiedBy: this.authJwt.decodeToken(
+          localStorage.getItem('token') || ''
+        )?.id,
         availableGMF: this.checkGMF,
+        height: '50%',
+        minWidth: '30%'
       },
     });
 

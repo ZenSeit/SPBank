@@ -1,4 +1,6 @@
-<form [formGroup]="createAccount">
+<div class="form-container">
+
+  <form [formGroup]="createAccount" class="naccount-form">
     
     <mat-form-field appearance="fill">
       <mat-label>Saldo de apertura</mat-label>
@@ -23,6 +25,9 @@
     </mat-form-field>
 
   
-    <button mat-button [mat-dialog-close]="this.createAccount.getRawValue()" [disabled]="this.createAccount.invalid" >Crear cuenta</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="this.createAccount.getRawValue()" [disabled]="this.createAccount.invalid" >Crear cuenta</button>
   
   </form>
+
+</div>
+
