@@ -38,7 +38,8 @@ public class Product {
     @ManyToOne
     private User owner;
 
-    private String state="active";
+    // 2=active, 1=inactive, 0=cancelled
+    private int state=2;
     private double balance;
     private double availableBalance;
     private boolean exceptionGMF;

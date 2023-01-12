@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface StatementProductRepository extends JpaRepository<StatementProduct,Long> {
 
-    List<StatementProduct> findByStatementOwner(Optional<Product> owner);
+    List<StatementProduct> findByStatementOwnerOrderByTransactionDateDesc(Optional<Product> owner);
 }

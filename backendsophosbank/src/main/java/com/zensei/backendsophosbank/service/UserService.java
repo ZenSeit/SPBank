@@ -67,6 +67,9 @@ public class UserService implements IUserService, UserDetailsService {
             String pass = passwordEncoder.encode(user.getPassword());
             verifiedUser.get().setPassword(pass);
         }
+        if(user.getCellPhone().length()>4){
+            verifiedUser.get().setCellPhone(user.getCellPhone());
+        }
         //verifiedUser.get().setNames(user.getNames());
         //verifiedUser.get().setLastNames(user.getLastNames());
 

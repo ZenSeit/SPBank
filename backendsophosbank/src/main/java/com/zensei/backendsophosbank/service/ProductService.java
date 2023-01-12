@@ -57,16 +57,21 @@ public class ProductService implements IProductService{
         Optional<Product> updateProduct = pRepository.findById(product.getId());
         if(updateProduct.isEmpty()) throw new RecordNotFound("Account not exist in our system");
 
-        if(product.getState().equalsIgnoreCase("cancelled")){
+        if(product.getState()==0){
             if(updateProduct.get().getBalance()<0 || updateProduct.get().getBalance()>1){
                 throw new ProductConstraint("You cannot cancelled this account until its balance is 0!");
             }
         }
-        if(!product.getState().equals("")) updateProduct.get().setState(product.getState());
+        if(product.getState()>=0 && product.getState()<=2) updateProduct.get().setState(product.getState());
 
-        if(pRepository.countIsGMFPresent(updateProduct.get().getOwner())>0 && product.isExceptionGMF()) throw new ProductConstraint("User have a GMF exception account already!");
+        if(!updateProduct.get().isExceptionGMF()){
+            if(pRepository.countIsGMFPresent(updateProduct.get().getOwner())>0 && product.isExceptionGMF()) throw new ProductConstraint("User have a GMF exception account already!");
+
+        }
 
         updateProduct.get().setExceptionGMF(product.isExceptionGMF());
+
+        if(product.getState()==0) updateProduct.get().setExceptionGMF(false);
 
         UAccount.applyGMF(updateProduct.get());
 
@@ -96,7 +101,7 @@ public class ProductService implements IProductService{
 
         if(ownerProduct.isEmpty()) throw new RecordNotFound("User doesn't exist!");
 
-        return pRepository.findByOwnerOrderByAvailableBalanceDesc(ownerProduct.get());
+        return pRepository.findByOwnerOrderByStateDescAvailableBalanceDesc(ownerProduct.get());
     }
 
 

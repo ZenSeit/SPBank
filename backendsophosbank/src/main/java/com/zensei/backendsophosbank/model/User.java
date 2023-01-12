@@ -59,6 +59,8 @@ public class User{
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    @Pattern(regexp = "[0-9]+", message = "Cellphone number must have digits only")
+    private String cellPhone="";
     @Column(length = 10)
     private String rol="client";
     @CreationTimestamp

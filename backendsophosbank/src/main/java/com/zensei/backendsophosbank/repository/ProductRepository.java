@@ -20,7 +20,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("Select count(*) from Product where owner=:owner and exceptionGMF=true")
     Long countIsGMFPresent(@Param("owner") User us);
 
-    List<Product> findByOwnerOrderByAvailableBalanceDesc(User owner);
+    List<Product> findByOwnerOrderByStateDescAvailableBalanceDesc(User owner);
 
     Optional<Product> findByAccountNumber(String AccountNumber);
 }

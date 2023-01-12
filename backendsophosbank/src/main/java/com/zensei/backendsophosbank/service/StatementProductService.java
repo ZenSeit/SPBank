@@ -29,7 +29,7 @@ public class StatementProductService implements IStatementProductService{
     public List<StatementProduct> getStatementsByOwner(Long id) throws RecordNotFound {
         Optional<Product> product=pRepository.findById(id);
         if (product.isEmpty()) throw new RecordNotFound("Account doesn't exist!");
-        return spRepository.findByStatementOwner(product);
+        return spRepository.findByStatementOwnerOrderByTransactionDateDesc(product);
     }
 
     @Transactional(rollbackOn = { SQLException.class })
@@ -72,7 +72,7 @@ public class StatementProductService implements IStatementProductService{
         Optional<Product> toAccount = pRepository.findByAccountNumber(idTo);
 
         if(fromAccount.isEmpty()) throw new RecordNotFound("Account from you want to execute this operation doesn't exist or is cancelled!");
-        if(toAccount.isEmpty() || toAccount.get().getState().equalsIgnoreCase("cancelled")) throw new RecordNotFound("Target account does not exist or is cancelled");
+        if(toAccount.isEmpty() || toAccount.get().getState()==0) throw new RecordNotFound("Target account does not exist or is cancelled");
 
         if(fromAccount.get().getAccountNumber().equalsIgnoreCase(toAccount.get().getAccountNumber())) throw new ProductConstraint("You cannot transfer to the same account");
 
@@ -87,7 +87,7 @@ public class StatementProductService implements IStatementProductService{
 
     private void operationDebit(Product withdrawal, StatementProduct stProduct, String description) throws ProductConstraint {
 
-        if(withdrawal.getState().equalsIgnoreCase("inactive")) throw new ProductConstraint("You can´t debit from an inactive account");
+        if(withdrawal.getState()==0) throw new ProductConstraint("You can´t debit from an inactive account");
 
         UAccount.checkBalanceOperation(withdrawal,stProduct.getTransactionValue());
 
