@@ -13,7 +13,7 @@ export class TokenService {
    }
 
    setToken(token:string){
-    this.tokenStorage.next(token);
+    this.tokenStorage.next(token || '');
    }
 
    getToken():Observable<string>{

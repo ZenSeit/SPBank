@@ -1,3 +1,8 @@
+.user-container{
+  height: 93vh;
+  background: url('../../../assets/images/bank.jpg');
+}
+
 .main-container {
   margin: 0 2% 0 2%;
 }
@@ -67,4 +72,10 @@
 
 .msg{
   font-size: 1.9rem;
+}
+
+.menu-bar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

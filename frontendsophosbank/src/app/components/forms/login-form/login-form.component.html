@@ -16,7 +16,7 @@
       >
     </mat-form-field>
 
-    <button [disabled]="this.loginUser.invalid" (click)="sendInfoLogin()">
+    <button mat-button class="login-button" [disabled]="this.loginUser.invalid" (click)="sendInfoLogin()">
       Ingresar
     </button>
   </form>

@@ -1,7 +1,9 @@
 <ng-container
   *ngIf="transactionByAccount.length < 1 && !accountSelected; else transactions"
 >
-  <div class="msgInfo-container">Selecciona una cuenta para ver los movimientos</div>
+  <div class="msgInfo-container">
+    Selecciona una cuenta para ver los movimientos
+  </div>
 </ng-container>
 <ng-template #transactions>
   <ng-container
@@ -10,52 +12,55 @@
       else transactions
     "
   >
-  <div class="msgInfo-container">
-    
-    Esta cuenta no tiene movimientos aun
-  </div>
+    <div class="msgInfo-container">Esta cuenta no tiene movimientos aun</div>
   </ng-container>
   <ng-template #transactions>
-    <table
-      mat-table
-      [dataSource]="transactionByAccount"
-      class="mat-elevation-z8"
-    >
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef>Descripcion</th>
-        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-      </ng-container>
+    <div class="infoTransactions-container">
+      <table
+        mat-table
+        [dataSource]="transactionByAccount"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Descripcion</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="transactionValue">
-        <th mat-header-cell *matHeaderCellDef>Valor de la transaccion</th>
-        <td mat-cell *matCellDef="let element" [class]="element.statementType">
-          {{ element.transactionValue | currency : "COP" }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="transactionValue">
+          <th mat-header-cell *matHeaderCellDef>Valor de la transaccion</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [class]="element.statementType"
+          >
+            {{ element.transactionValue | currency : "COP" }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="balance">
-        <th mat-header-cell *matHeaderCellDef>Saldo</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.balance | currency : "COP" }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="balance">
+          <th mat-header-cell *matHeaderCellDef>Saldo</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.balance | currency : "COP" }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="availableBalance">
-        <th mat-header-cell *matHeaderCellDef>Saldo disponible</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.availableBalance | currency : "COP" }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="availableBalance">
+          <th mat-header-cell *matHeaderCellDef>Saldo disponible</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.availableBalance | currency : "COP" }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="transactionDate">
-        <th mat-header-cell *matHeaderCellDef>Fecha de transaccion</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.transactionDate }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="transactionDate">
+          <th mat-header-cell *matHeaderCellDef>Fecha de transaccion</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.transactionDate | date:'medium' }}
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
   </ng-template>
 </ng-template>

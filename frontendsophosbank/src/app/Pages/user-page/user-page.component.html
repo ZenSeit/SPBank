@@ -1,48 +1,70 @@
-<ng-container *ngIf="userAccounts.length > 0; else templateA">
-  <div class="main-container">
-    <div class="Account-container">
-      <div class="left-column">
-        <app-accounts-table
-          [accountsByUser]="userAccounts"
-          (idAccount)="getFullInfoAccountById($event)"
-        ></app-accounts-table>
-        <div class="action-menu">
-          <app-new-account-buttom [ownerUser]="userInfo" (infoNewAccount)="createAccount($event)" [thereIsGMF]="exeAccount.length>0"></app-new-account-buttom>
+<div class="user-container">
+
+  <ng-container *ngIf="userAccounts.length > 0; else templateA">
+    <div class="main-container">
+      <div class="Account-container">
+        <div class="left-column">
+          <app-accounts-table
+            [accountsByUser]="userAccounts"
+            (idAccount)="getFullInfoAccountById($event)"
+          ></app-accounts-table>
+          <div class="action-menu">
+            <app-new-account-buttom
+              [ownerUser]="userInfo"
+              (infoNewAccount)="createAccount($event)"
+              [thereIsGMF]="exeAccount.length > 0"
+            ></app-new-account-buttom>
+          </div>
+        </div>
+        <div class="rigth-column">
+          <h3>Productos de {{userInfo?.names}} - Numero de identificacion {{userInfo?.idNumber}}</h3>
+          <ng-container *ngIf="selectedAccount; else msgEmpty">
+            <app-user-card
+              [selectedAccount]="selectedAccount"
+              [exeGMF]="exeAccount.length > 0"
+              [prueba]="exeAccount"
+              (infoCredit)="creditToAccount($event)"
+              (infoDebit)="debitFromAccount($event)"
+              (infoTransfer)="transferToAccount($event)"
+              (infoEditAccount)="editAccount($event)"
+            ></app-user-card>
+          </ng-container>
+          <ng-template #msgEmpty>
+            <div class="infoDetails-container">
+              <h3 class="msg">Selecciona una cuenta para ver mas informacion</h3>
+            </div>
+          </ng-template>
         </div>
       </div>
-      <div class="rigth-column">
-        <ng-container *ngIf="selectedAccount; else msgEmpty">
-          <app-user-card
-            [selectedAccount]="selectedAccount"
-            [exeGMF]="exeAccount.length>0"
-            [prueba]="exeAccount"
-            (infoCredit)="creditToAccount($event)"
-            (infoDebit)="debitFromAccount($event)"
-            (infoTransfer)="transferToAccount($event)"
-            (infoEditAccount)="editAccount($event)"
-          ></app-user-card>
-        </ng-container>
-        <ng-template #msgEmpty>
-          <div class="infoDetails-container">
-            
-            <h3 class="msg">Selecciona una cuenta para ver mas informacion</h3>
-          </div>
-        </ng-template>
+  
+      <app-transactions-account-table
+        [transactionByAccount]="transactionsAccount"
+        [accountSelected]="selectedAccount"
+      ></app-transactions-account-table>
+    </div>
+    <div class="menu-bar">
+      <button mat-raised-button routerLink="/users" class="home-button">
+        Ver lista de usuarios
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #templateA>
+    <div class="main-container">
+      <div class="info-container">
+        <h3 class="info-details">
+          No hay cuentas asociadas al usuario {{userInfo?.idNumber}}, crea una ahora!
+        </h3>
+        <app-new-account-buttom
+          [ownerUser]="userInfo"
+          (infoNewAccount)="createAccount($event)"
+          [thereIsGMF]="exeAccount.length > 0"
+        ></app-new-account-buttom>
+        <button mat-raised-button routerLink="/users" class="home-button">
+          Lista de usuarios
+        </button>
       </div>
     </div>
+  </ng-template>
+  
 
-    <app-transactions-account-table
-      [transactionByAccount]="transactionsAccount"
-      [accountSelected]="selectedAccount"
-    ></app-transactions-account-table>
-  </div>
-</ng-container>
-<ng-template #templateA>
-  <div class="main-container">
-    <div class="info-container">
-      <h3 class="info-details">No hay cuentas asociadas al usuario, crea una ahora!</h3>
-      <app-new-account-buttom [ownerUser]="userInfo" (infoNewAccount)="createAccount($event)" [thereIsGMF]="exeAccount.length>0"></app-new-account-buttom>
-      <button mat-raised-button routerLink="/users" class="home-button">Lista de usuarios</button>
-    </div>
-  </div>
-</ng-template>
+</div>

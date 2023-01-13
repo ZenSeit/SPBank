@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { msg_Es } from 'src/app/Information/constantsToApp';
 import { User } from 'src/app/Models/user.interface';
 import { UserService } from 'src/app/services/User/user.service';
 
@@ -29,28 +30,25 @@ export class UsersPageComponent implements OnInit {
     this.userService.deleteUserById(id).subscribe(
       (obs) => {
         this.getUsers();
-      },
-      (error: HttpErrorResponse) => alert(error.error)
+      }
     );
   }
 
   registerNewUser(newUser:User){
     this.userService.addNewUser(newUser).subscribe(
       (obs) => {
-        console.log(obs);
         this.getUsers();
+        msg_Es(obs)
       },
-      (error: HttpErrorResponse) => alert(error.error)
     );
   }
 
   editUser(user:User){
     this.userService.editUser(user).subscribe(
       (obs) => {
-        console.log(obs);
         this.getUsers();
+        msg_Es(obs)
       },
-      (error: HttpErrorResponse) => alert(error.error)
     );
   }
 

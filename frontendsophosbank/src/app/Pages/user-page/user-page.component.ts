@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { msg_Es } from 'src/app/Information/constantsToApp';
 import { Product } from 'src/app/Models/product.interface';
 import { Transaction } from 'src/app/Models/transaction.interface';
 import { User } from 'src/app/Models/user.interface';
@@ -59,7 +60,6 @@ export class UserPageComponent implements OnInit {
         this.userAccounts = obs,
         this.exeAccount=this.userAccounts.filter(acc => acc.exceptionGMF)
         )
-      //(error: HttpErrorResponse) => this.router.navigate(['home'])
     );
   }
 
@@ -76,56 +76,50 @@ export class UserPageComponent implements OnInit {
   creditToAccount(info:any){
     this.transactionsService.creditToAccount(info).subscribe(
       (obs) => {
-        console.log(obs)
+        msg_Es(obs)
         this.getFullInfoAccountById(info.idAccount)
         this.getAccountsByUser(this.idUser)
-      },
-      (error: HttpErrorResponse) => console.log(error.error)
+      }
     )
   }
 
   debitFromAccount(info:any){
     this.transactionsService.debitFromAccount(info).subscribe(
       (obs) => {
-        console.log(obs)
+        msg_Es(obs)
         this.getFullInfoAccountById(info.idAccount)
         this.getAccountsByUser(this.idUser)
-      },
-      (error: HttpErrorResponse) => console.log(error.error)
+      }
     )
   }
 
   transferToAccount(info:any){
     this.transactionsService.transferToAccount(info).subscribe(
       (obs) => {
-        console.log(obs)
+        msg_Es(obs)
         this.getFullInfoAccountById(info.idAccount)
         this.getAccountsByUser(this.idUser)
-      },
-      (error: HttpErrorResponse) => console.log(error.error)
+      }
     )
   }
 
   createAccount(info:any){
     this.accountService.createAccount(info).subscribe(
       (obs) => {
-        console.log(obs)
+        msg_Es(obs)
         //this.getFullInfoAccountById(info.idAccount)
         this.getAccountsByUser(this.idUser)
-      },
-      (error: HttpErrorResponse) => console.log(error.error)
+      }
     )
   }
 
   editAccount(info:any){
-    console.log(info);
     this.accountService.editAccount(info).subscribe(
       (obs) => {
-        console.log(obs)
+        msg_Es(obs)
         this.getAccountsByUser(this.idUser)
         this.getFullInfoAccountById(info.id)
-      },
-      (error: HttpErrorResponse) => console.log(error.error)
+      }
     )
   }
 

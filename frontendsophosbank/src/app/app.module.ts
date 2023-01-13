@@ -77,7 +77,7 @@ import { AccountStatePipe } from './pipes/account-state.pipe';
     AccountTypeESPipe,
     LoginFormComponent,
     MyHeaderComponent,
-    AccountStatePipe
+    AccountStatePipe,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,98 @@
+.main-container {
+  height: 93vh;
+  width: 100vw;
+  background: url('../../../assets/images/bank.jpg');
+}
+
+.info-section {
+  height: 92%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.curriculum {
+  padding: 3%;
+  border-radius: 50px;
+  width: 80%;
+  min-height:40%;
+  display: flex;
+  background-image: radial-gradient(
+    circle 610px at 5.2% 51.6%,
+    rgba(5, 8, 114, 1) 0%,
+    rgba(7, 3, 53, 1) 97.5%
+  );
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.6px);
+  -webkit-backdrop-filter: blur(7.6px);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  color: white;
+}
+
+.profile-photo {
+  width: 85%;
+}
+
+.left-side {
+  width: 70%;
+}
+
+.social-icon {
+  width: 10%;
+  background-color: white;
+  border-radius: 50px;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.icons-section{
+    height: 13vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+a{
+    margin: 0 2% 0 2%;
+}
+
+.rigth-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+
+.bar-section {
+  display: flex;
+  height: 4%;
+  justify-content: center;
+  align-items: center;
+}
+
+.name-section {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 4%;
+}
+
+.profession-section {
+  font-size: 1.5rem;
+}
+
+.email-section {
+  font-size: 1.2rem;
+}
+
+.profile-section {
+  font-size: 1.3rem;
+  text-align: justify;
+  line-height: 2rem;
+  margin-top: 4%;
+}
