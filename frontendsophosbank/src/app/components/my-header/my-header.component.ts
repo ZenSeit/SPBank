@@ -25,6 +25,9 @@ export class MyHeaderComponent implements OnInit {
     })
   }
 
+  goHome(){
+    this.router.navigate(['/home'])
+  }
 
  
   cleanSession(){

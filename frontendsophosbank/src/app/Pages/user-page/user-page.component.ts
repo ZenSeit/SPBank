@@ -106,7 +106,7 @@ export class UserPageComponent implements OnInit {
   createAccount(info:any){
     this.accountService.createAccount(info).subscribe(
       (obs) => {
-        msg_Es(obs)
+        msg_Es(`cuenta ${obs.accountNumber} creada`)
         //this.getFullInfoAccountById(info.idAccount)
         this.getAccountsByUser(this.idUser)
       }

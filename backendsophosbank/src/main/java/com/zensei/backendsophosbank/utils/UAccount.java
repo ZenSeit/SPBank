@@ -34,6 +34,7 @@ public class UAccount {
 
     public static void checkBalanceOperation(Product product, double debitValue) throws ProductConstraint {
         double balanceTransaction = product.getBalance()-valueForGMF(product.isExceptionGMF(), debitValue);
+        if(product.getAccountType().equalsIgnoreCase("saving") && product.getAvailableBalance()-debitValue<=0.8 && product.getAvailableBalance()-debitValue>=0) balanceTransaction=0;
         if(product.getAccountType().equalsIgnoreCase("saving") && balanceTransaction<0){
             throw new ProductConstraint("Your balance must be at least 0. You have $ "+product.getAvailableBalance()+" available.");
         }else if (product.getAccountType().equalsIgnoreCase("checking") && balanceTransaction<-3000000){
@@ -47,7 +48,7 @@ public class UAccount {
         if(GMF) {
             return applyValue;
         }else {
-            System.out.println(applyValue+(applyValue/1000)*4);
+            //System.out.println(applyValue+(applyValue/1000)*4);
             return applyValue+(applyValue/1000)*4;
         }
     }
